@@ -1,13 +1,11 @@
 <template>
   <div id="app">
-    <login-input/>
+    <router-view/>
   </div>
 </template>
 <script>
-import HelloWorld from "./components/HelloWorld";
-import LoginInput from "./components/login/LoginInput";
 export default {
-  components: {LoginInput, HelloWorld}
+  name:"App"
 }
 </script>
 <style lang="less">
@@ -26,22 +24,6 @@ export default {
   color: #2c3e50;
   height: 100%;
   width: 100%;
-  margin:0;
-  padding: 0;
-  position: relative;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
-
