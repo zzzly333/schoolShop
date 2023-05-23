@@ -1,9 +1,15 @@
 <template>
   <div id="app">
-    <router-view/>
+    <login-input/>
   </div>
 </template>
-
+<script>
+import HelloWorld from "./components/HelloWorld";
+import LoginInput from "./components/login/LoginInput";
+export default {
+  components: {LoginInput, HelloWorld}
+}
+</script>
 <style lang="less">
 // html,body {
 //   width: 100%;
@@ -20,6 +26,9 @@
   color: #2c3e50;
   height: 100%;
   width: 100%;
+  margin:0;
+  padding: 0;
+  position: relative;
 }
 
 nav {
@@ -35,3 +44,4 @@ nav {
   }
 }
 </style>
+

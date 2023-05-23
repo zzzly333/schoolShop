@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/index'
 
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -25,6 +25,7 @@ Vue.prototype.$confirm = Element.MessageBox.confirm
 Vue.use(qs)
 
 new Vue({
+  el: '#app',
   router,
   store,
   render: h => h(App)
