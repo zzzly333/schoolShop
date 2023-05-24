@@ -20,15 +20,14 @@ public class goodsTypeController {
     @ResponseBody
     @RequestMapping("/goodsType")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-    public void getGoodsType() throws Exception {
+    public List<goodsType> getGoodsType() throws Exception {
         List<goodsType> goodsType = null;
         goodsType = goodsTypeService.getGoodsType();
-        if(goodsType != null){
+//        if(goodsType != null){
 //            HttpSession session = request.getSession();
 //            session.setAttribute("goodsType", goodsType);
             System.out.println(goodsType);
-        }
-        else
-            System.out.println("error");
+            return goodsType;
+//        }
     }
 }

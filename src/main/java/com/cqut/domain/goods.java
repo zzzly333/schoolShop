@@ -8,9 +8,9 @@ public class goods {
     private int goodsNum;
     private String goodsImage;
     private String goodsInfo;
-    private boolean state;
+    private String state;
 
-    public goods(String id, String goodsName, String goodsType, float goodsPrice, int goodsNum, String goodsImage, String goodsInfo, boolean state) {
+    public goods(String id, String goodsName, String goodsType, float goodsPrice, int goodsNum, String goodsImage, String goodsInfo, String state) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsType = goodsType;
@@ -77,11 +77,11 @@ public class goods {
         this.goodsInfo = goodsInfo;
     }
 
-    public boolean isState() {
+    public String isState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(String state) {
         this.state = state;
     }
 

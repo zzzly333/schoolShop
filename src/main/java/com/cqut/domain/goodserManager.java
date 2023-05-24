@@ -4,9 +4,9 @@ public class goodserManager {
     private String id;
     private String username;
     private String password;
-    private boolean state;
+    private String state;
 
-    public goodserManager(String id, String username, String password, boolean state) {
+    public goodserManager(String id, String username, String password, String state) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -37,11 +37,11 @@ public class goodserManager {
         this.password = password;
     }
 
-    public boolean isState() {
+    public String isState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(String state) {
         this.state = state;
     }
 

@@ -23,8 +23,8 @@
       <el-table :data="userlist" border stripe :header-cell-style="{ 'text-align': 'center' }"
                 :cell-style="{ 'text-align': 'center' }">
         <el-table-column prop="id" label="编号" width="100px"></el-table-column>
-        <el-table-column prop="goodsType" label="商品类型"></el-table-column>
-        <el-table-column prop="goodsState" label="商品状态"></el-table-column>
+        <el-table-column prop="name" label="商品类型"></el-table-column>
+        <el-table-column prop="state" label="商品状态"></el-table-column>
 
         <el-table-column width="180px" label="操作">
           <!-- slot-scope="scope" -->
@@ -52,10 +52,10 @@
                         <el-input v-model="addForm.id"></el-input>
                     </el-form-item>
                     <el-form-item label="商品类型" prop="goodsType">
-                        <el-input v-model="addForm.goodsType"></el-input>
+                        <el-input v-model="addForm.name"></el-input>
                     </el-form-item>
                   <el-form-item label="商品状态" prop="goodsState">
-                        <el-input v-model="addForm.goodsState"></el-input>
+                        <el-input v-model="addForm.state"></el-input>
                     </el-form-item>
                 </el-form>
             </span>
@@ -74,10 +74,10 @@
                         <el-input v-model="editForm.id"></el-input>
                     </el-form-item>
                     <el-form-item label="商品类型" prop="goodsType">
-                        <el-input v-model="editForm.goodsType"></el-input>
+                        <el-input v-model="editForm.name"></el-input>
                     </el-form-item>
                   <el-form-item label="商品状态" prop="goodsState">
-                        <el-input v-model="editForm.goodsState"></el-input>
+                        <el-input v-model="editForm.state"></el-input>
                     </el-form-item>
                 </el-form>
             </span>
@@ -101,7 +101,7 @@ export default {
         pagesize: 5
       },
       userlist: [
-        { id: '1001',  goodsType:'文具', goodsState: '启用'}
+
       ],
       total: 0,
       // 控制添加物品对话框显示与隐藏
@@ -128,8 +128,9 @@ export default {
       // const result = await this.$axios.get("/api/goodsServlet", { params: this.queryInfo });
       const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/goodsType");
       console.log(result);
-      // this.userlist = result.data.data;
-      // this.total = result.data.count
+      this.userlist = result.data
+      console.log(result.data)
+      this.total = result.data.length
     },
     // pagesize 改变的事件
     handleSizeChange(newSize) {

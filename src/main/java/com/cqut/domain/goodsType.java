@@ -3,9 +3,9 @@ package com.cqut.domain;
 public class goodsType {
     private String id;
     private String name;
-    private int state;
+    private String state;
 
-    public goodsType(String id, String name, int state) {
+    public goodsType(String id, String name, String state) {
         this.id = id;
         this.name = name;
         this.state = state;
@@ -27,11 +27,11 @@ public class goodsType {
         this.name = name;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
 

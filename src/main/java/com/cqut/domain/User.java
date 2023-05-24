@@ -6,9 +6,9 @@ public class User {
     private String username;
     private String password;
     private String address;
-    private boolean state;//启用与禁止
+    private String state;//启用与禁止
 
-    public User(String id, String name, String username, String password, String address, boolean state) {
+    public User(String id, String name, String username, String password, String address, String state) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -68,11 +68,11 @@ public class User {
         this.address = address;
     }
 
-    public boolean isState() {
+    public String isState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(String state) {
         this.state = state;
     }
 
