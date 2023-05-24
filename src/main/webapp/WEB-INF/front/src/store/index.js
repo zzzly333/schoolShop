@@ -7,7 +7,24 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    obj: ''
+    obj: '',
+    isSelectAll: false,
+    checked:[false,false,false,false,false,false,false,false,false,false],
+    items:[],
+    isLogin: true,
+    hideUsr:true,
+    hideManager:true,
+    hideLogin:false,
+    user:{
+      username:'',
+      password:'',
+      nickname:'',
+      gender:'',
+      tel:'',
+    },
+    shopcart:[],
+    indexGoods:'',
+    manager:''
   },
   actions,
   getters,

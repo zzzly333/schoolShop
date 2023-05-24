@@ -16,9 +16,8 @@
           <el-button type="primary" @click="log">登录</el-button>
           <a href="javascript:" @click="change" :class="{a:true,hide:this.manager}">去注册 ></a>
         </div>
-        <div class="input" style="margin-top: -10%" :class="{hide:!login}">
+        <div class="input" :class="{hide:!login}">
           <el-input placeholder="昵称"  prefix-icon="el-icon-user-solid" v-model="nickname"></el-input>
-          <el-input placeholder="手机号"  style="margin-top: 20px" prefix-icon="el-icon-phone" v-model="tel"></el-input>
           <el-input placeholder="密码(至少8位)" type="password" style="margin-top: 20px" prefix-icon="el-icon-lock" v-model="password1"></el-input>
         </div>
         <div class="button" :class="{hide:!login}">
@@ -49,7 +48,7 @@ export default {
       warn:'',
       result:false,
       login:false,
-      tel:'',
+      nickname:'',
       password1:'',
       registed:false,
 
@@ -85,29 +84,31 @@ export default {
       })
     },
     userLogin(){
-      let p = false
-      this.$axios({
-        url:"http://localhost:8080/Library_war_exploded/ValidateLoginServlet",
-        method:'post',
-        params:{
-          username:this.username,
-          password:this.password,
-        },
-        headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-      }).then((result) => {
-        if(result.data.exit){
-          router.push('/home')
-          store.commit('login',result.data)
-          console.log(this.$store.state.user)
-          p = true
-          this.getGoods("GetGoodsServlet")
-        }
-      }, function () {
-        console.log('传输失败');
-      })
-      if (p)
-        this.result = true
-      this.p()
+      router.push('/home')
+      store.commit('login','')
+      // let p = false
+      // this.$axios({
+      //   url:"http://localhost:8080/Library_war_exploded/ValidateLoginServlet",
+      //   method:'post',
+      //   params:{
+      //     username:this.username,
+      //     password:this.password,
+      //   },
+      //   headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+      // }).then((result) => {
+      //   if(result.data.exit){
+      //     router.push('/home')
+      //     store.commit('login',result.data)
+      //     console.log(this.$store.state.user)
+      //     p = true
+      //     this.getGoods("GetGoodsServlet")
+      //   }
+      // }, function () {
+      //   console.log('传输失败');
+      // })
+      // if (p)
+      //   this.result = true
+      // this.p()
     },
     managerLogin(){
       let p = false
@@ -134,15 +135,14 @@ export default {
       this.p()
     },
     log() {
-      if(this.username=='' && this.password=='')
-        this.$message.error("输入不能为空！")
-      else{
-        if(this.commonUsr)
+      // if(this.username=='' && this.password=='')
+      //   this.$message.error("输入不能为空！")
+      // else{
+      //   if(this.commonUsr)
           this.userLogin()
-        else
-          this.managerLogin()
-      }
-
+        // else
+        //   this.managerLogin()
+      // }
     },
     p(){
       // if(this.result)

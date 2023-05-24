@@ -33,16 +33,44 @@ import goodserManager from "../components/manager/goodserManager";
 import backPage3 from "../views/manager/backPage3";
 import backPage2 from "../views/manager/backPage2";
 import backPage1 from "../views/manager/backPage1";
-import login from "../views/login/login";
-
+import Home from "../views/user/Home";
+import Login from "../views/login/login";
+import ShopCart from "../views/user/ShopCart";
+import Profile from "../views/user/Profile";
+import MyOrders from "../views/user/MyOrders";
 Vue.use(VueRouter)
 
 
-const routes = [{
-    path: '/',
-    name: 'login',
-    component: login,
-    meta: { isAuth: true, title: "登录" }
+const routes = [
+  // {
+  //   path: '',
+  //   name: 'home',
+  //   component: Home,
+  //   meta: { isAuth: true, title: "登录" }
+  // },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home,
+    meta: { isAuth: true, title: "首页" }
+  },
+  {
+    path: '/orders',
+    name: 'orders',
+    component: MyOrders,
+    meta: { isAuth: true, title: "首页" }
+  },
+  {
+    path: '/shopcart',
+    name: 'shopcart',
+    component: ShopCart,
+    meta: { isAuth: true, title: "首页" }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    meta: { isAuth: true, title: "首页" }
   },
   {
     path: '/backPage1',
