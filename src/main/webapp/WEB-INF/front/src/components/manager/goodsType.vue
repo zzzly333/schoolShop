@@ -126,7 +126,8 @@ export default {
       // console.log(this.queryInfo)
       // this.queryInfo.method = 'getGoodss';
       // const result = await this.$axios.get("/api/goodsServlet", { params: this.queryInfo });
-      // console.log(result);
+      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/goodsType");
+      console.log(result);
       // this.userlist = result.data.data;
       // this.total = result.data.count
     },

@@ -12,6 +12,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</settings>
 	<!-- 别名优化 -->
 	<typeAliases>
-		<package name="com.sixmai.domain"/>
+		<package name="com.cqut.domain"/>
 	</typeAliases>
 </configuration>

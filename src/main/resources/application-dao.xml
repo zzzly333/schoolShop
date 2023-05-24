@@ -32,14 +32,14 @@
 		<!--扫描 XXXmapper.xml映射文件,配置扫描的路径 这个不配置也可以，但是不配置的话，下面dao和xxxMapper.xml必须放在同一个包下面 -->
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:com/sixmai/mapping/*.xml</value>
+				<value>classpath:com/cqut/mapper/*.xml</value>
 			</array>
 		</property>
 	</bean>
 	<!-- Mapper接口所在包名，Spring会自动查找之中的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 以下的配置只能指向一个包 如果配置多个呢 就在包的中间加, -->
-		<property name="basePackage" value="com.sixmai.mapper" />
+		<property name="basePackage" value="com.cqut.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 
