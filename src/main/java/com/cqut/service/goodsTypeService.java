@@ -7,5 +7,8 @@ import java.util.List;
 
 @Resource
 public interface goodsTypeService {
-    public List<goodsType> getGoodsType() throws Exception;
+    List<goodsType> getGoodsType() throws Exception;
+    void addGoodsType(goodsType goodsType) throws Exception;
+    void delGoodsType(goodsType goodsType) throws Exception;
+    void updateGoodsType(goodsType goodsType) throws Exception;
 }

@@ -77,7 +77,7 @@ public class goods {
         this.goodsInfo = goodsInfo;
     }
 
-    public String isState() {
+    public String getState() {
         return state;
     }
 

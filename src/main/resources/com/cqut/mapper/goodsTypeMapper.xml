@@ -7,4 +7,13 @@
     <select id="getGoodsType" resultType= "goodsType" >
         SELECT * FROM goodstype
     </select>
+    <insert id="addGoodsType" parameterType="goodsType">
+        insert into goodstype values (#{id},#{name},#{state})
+    </insert>
+    <delete id="delGoodsType" parameterType="goodsType">
+        delete from goodstype where id=#{id}
+    </delete>
+    <update id="updateGoodsType" parameterType="goodsType">
+        update goodstype set name=#{name},state=#{state} where id=#{id}
+    </update>
 </mapper>

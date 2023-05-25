@@ -11,8 +11,8 @@
       <!-- 搜索和添加区域 -->
       <el-row :gutter="20">
         <el-col :span="7">
-          <el-input v-model="queryInfo.query" placeholder="请输入内容" clearable>
-            <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
+          <el-input v-model="search" placeholder="请输入内容" clearable>
+            <el-button slot="append" icon="el-icon-search" ></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -33,7 +33,7 @@
             <el-button type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row)"></el-button>
             <!-- 删除物品 -->
             <el-button type="danger" icon="el-icon-delete"
-                       @click="removeUserById(scope.row.id)"></el-button>
+                       @click="removeUserById(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -109,27 +109,47 @@ export default {
       // 添加物品的表单数据
       addForm: {
         id: '',
-        goodsType: '',
-        goodsState: ''
+        name: '',
+        state: ''
       },
       // 控制修改窗口的显示与隐藏
       editDialogVisible: false,
-      editForm: {}
+      editForm: {},
+      // 查找
+      search:'',
+      filterList:[]
     }
   },
   created() {
     this.getUserList();
   },
+  watch: {
+    search: {
+      //首次绑定是否执行handler
+      immediate: true,
+      //一般情况下，数据发生变化handler才会执行
+      handler (val) {
+        console.log(val)
+        //过滤数据赋值给新数组
+        if(val=='')
+          this.getUserList()
+        else {
+          this.filterList = this.userlist.filter((item) => {
+            //判断是否在数组中存在
+            return item.id.indexOf(val) !== -1
+          })
+          this.userlist = this.filterList
+        }
+      }
+    }
+  },
   methods: {
     // 获取物品列表
     async getUserList() {
-      // console.log(this.queryInfo)
-      // this.queryInfo.method = 'getGoodss';
-      // const result = await this.$axios.get("/api/goodsServlet", { params: this.queryInfo });
-      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/goodsType");
-      console.log(result);
+      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/getGoodsType");
+      console.log('getUserList:');
+      console.log(result)
       this.userlist = result.data
-      console.log(result.data)
       this.total = result.data.length
     },
     // pagesize 改变的事件
@@ -147,17 +167,18 @@ export default {
     // 添加物品
     async addUser() {
       // async 和 await 配套使用，这样异步调用接口
-      // console.log(this.addForm)
-      // this.addForm.method = 'addGoods';
-      // const result = await this.$axios.post("/api/goodsServlet", qs.stringify(this.addForm));
-      // console.log(result)
-      //
-      // if (result.data.code != '0000') {
-      //   return this.$Message.error('添加失败！')
-      // }
-      // this.addDialogVisible = false;
-      // this.getUserList();
-      // this.$Message.success('添加成功！')
+      console.log('addForm:')
+      console.log(this.addForm)
+      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/addGoodsType",qs.stringify(this.addForm));
+      console.log('addUser:')
+      console.log(result)
+
+      if (result.status != '200') {
+        return this.$Message.error('添加失败！')
+      }
+      this.addDialogVisible = false;
+      this.getUserList();
+      this.$Message.success('添加成功！')
 
     },
     // 展示修改物品的对话框
@@ -168,24 +189,25 @@ export default {
     },
     // 修改物品信息并提交
     async editUserInfo() {
-      // this.editForm.method = 'updateGoods';
-      // // 发起修改物品信息接口
-      // const result = await this.$axios.post('/api/goodsServlet', qs.stringify(this.editForm));
-      // console.log(result);
-      // //this.editForm="";
-      // if (result.data.code !== '0000') {
-      //   return this.$Message.erro("修改物品信息失败！")
-      // }
-      // // 关闭对话框
-      // this.editDialogVisible = false;
-      // // 刷新数据
-      // this.getUserList();
-      // // 提示更新成功
-      // this.$Message.success('修改物品成功！')
+      // 发起修改物品信息接口
+      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/updateGoodsType", qs.stringify(this.editForm));
+      console.log(result);
+      //this.editForm="";
+      if (result.status  != '200') {
+        return this.$Message.error("修改物品信息失败！")
+      }
+      // 关闭对话框
+      this.editDialogVisible = false;
+      // 提示更新成功
+      this.$Message.success('修改物品成功！')
+      // 刷新数据
+      this.getUserList();
     },
     // 根据id删除物品信息
-    async removeUserById(id) {
-      console.log(id)
+    async removeUserById(row) {
+      console.log('row:')
+      console.log(row)
+      // console.log(row.id)
       // 发送请求删除
       const confirmResult = await this.$confirm('此操作将永久删除该物品，是否继续？', '提示', {
         confirmButtonText: '确定',
@@ -193,20 +215,21 @@ export default {
         type: 'warning'
       }).catch(err => err);
 
-      console.log(confirmResult);
+      // console.log(confirmResult);
 
       if (confirmResult != "confirm") {
         return this.$Message.info('已经取消删除！');
       }
 
       // 删除操作
-      // const result = await this.$axios.get('/api/goodsServlet?method=deleteGoods&id=' + id);
-      // console.log(result.status)
-      // if (result.data.code != '0000') {
-      //   return this.$Message.error('删除失败！');
-      // }
-      // this.$Message.success('删除成功！');
-      // this.getUserList();
+      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/delGoodsType",qs.stringify(row));
+      console.log('removeUserById:')
+      console.log(result)
+      if (result.status  != '200') {
+        return this.$Message.error('删除失败！');
+      }
+      this.$Message.success('删除成功！');
+      this.getUserList();
     },
 
     editDialogClosed() {

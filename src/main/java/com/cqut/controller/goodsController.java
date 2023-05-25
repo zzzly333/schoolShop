@@ -1,7 +1,7 @@
 package com.cqut.controller;
 
-import com.cqut.domain.goodsType;
-import com.cqut.service.goodsTypeService;
+import com.cqut.domain.goods;
+import com.cqut.service.goodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,42 +12,45 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-public class goodsTypeController {
+public class goodsController {
     @Autowired
-    private goodsTypeService goodsTypeService;
+    private goodsService goodsService;
 
     @ResponseBody
-    @RequestMapping(value = "/getGoodsType")
+    @RequestMapping(value = "/getGoods")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-    public List<goodsType> getGoodsType() throws Exception {
-        List<goodsType> goodsType = null;
-        goodsType = goodsTypeService.getGoodsType();
+    public List<goods> getGoods() throws Exception {
+        List<goods> goods = null;
+        goods = goodsService.getGoods();
 //        if(goodsType != null){
 //            HttpSession session = request.getSession();
 //            session.setAttribute("goodsType", goodsType);
-            System.out.println(goodsType);
-            return goodsType;
+        System.out.println("getGoods:");
+        System.out.println(goods);
+        return goods;
 //        }
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addGoodsType")
+    @RequestMapping(value = "/addGoods")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-    public void addGoodsType(goodsType goodsType) throws Exception {
-        goodsTypeService.addGoodsType(goodsType);
+    public void addGoods(goods goods) throws Exception {
+        System.out.println("addGoods:");
+        System.out.println(goods);
+        goodsService.addGoods(goods);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delGoodsType")
+    @RequestMapping(value = "/delGoods")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-    public void delGoodsType(goodsType goodsType) throws Exception {
-        goodsTypeService.delGoodsType(goodsType);
+    public void delGoods(goods goods) throws Exception {
+        goodsService.delGoods(goods);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/updateGoodsType")
+    @RequestMapping(value = "/updateGoods")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-    public void updateGoodsType(goodsType goodsType) throws Exception {
-        goodsTypeService.updateGoodsType(goodsType);
+    public void updateGoods(goods goods) throws Exception {
+        goodsService.updateGoods(goods);
     }
 }
