@@ -38,39 +38,60 @@ import Login from "../views/login/login";
 import ShopCart from "../views/user/ShopCart";
 import Profile from "../views/user/Profile";
 import MyOrders from "../views/user/MyOrders";
+import TopMenu from "../components/user/topmenu/TopMenu";
 Vue.use(VueRouter)
 
 
 const routes = [
-  // {
-  //   path: '',
-  //   name: 'home',
-  //   component: Home,
-  //   meta: { isAuth: true, title: "登录" }
-  // },
   {
-    path: '/home',
-    name: 'home',
-    component: Home,
-    meta: { isAuth: true, title: "首页" }
+    path: '/',
+    name: 'login',
+    component: () => import("../views/login/login"),
+    meta: { isAuth: true, title: "登录" }
   },
   {
-    path: '/orders',
-    name: 'orders',
-    component: MyOrders,
-    meta: { isAuth: true, title: "首页" }
+    path: '/login',
+    name: 'login',
+    component: () => import("../views/login/login"),
+    meta: { isAuth: true, title: "登录" }
   },
   {
-    path: '/shopcart',
-    name: 'shopcart',
-    component: ShopCart,
-    meta: { isAuth: true, title: "首页" }
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: Profile,
-    meta: { isAuth: true, title: "首页" }
+    path: '/schoolshop',
+    name: 'schoolshop',
+    component: () => import("../components/user/topmenu/TopMenu"),
+    meta: { isAuth: true, title: "首页" },
+    children:[
+      {
+        path: '/',
+        name: 'home',
+        component: Home,
+        meta: { isAuth: true, title: "登录" }
+      },
+      {
+      path: 'home',
+      name: 'home',
+      component: Home,
+      meta: { isAuth: true, title: "登录" }
+    },
+      {
+        path: 'orders',
+        name: 'orders',
+        component: MyOrders,
+        meta: { isAuth: true, title: "订单记录" }
+      },
+      {
+        path: 'shopcart',
+        name: 'shopcart',
+        component: ShopCart,
+        meta: { isAuth: true, title: "购物车" }
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: Profile,
+        meta: { isAuth: true, title: "会员中心" }
+      }
+    ]
   },
   {
     path: '/backPage1',
@@ -146,7 +167,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 export default router

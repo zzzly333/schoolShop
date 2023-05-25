@@ -1,33 +1,13 @@
 <template>
   <div id="shop-cart" >
     <div id="shop-cart-body">
-
-      <!--    <div class="items">-->
-      <!--      <div class="shop-cart-item" v-for="(item,index) in $store.state.shopcart" :key="item.id">-->
-      <!--        <el-col >-->
-      <!--          <el-card shadow="hover"  >-->
-      <!--                  <div class="item-message" >-->
-      <!--                    <input class="single" type="checkbox" style="margin-right: 20px" @click="check(index,item)" :checked="$store.state.checked[index]">-->
-      <!--                    <span class="img" ><img :src="item.img"></span>-->
-      <!--                    <span style="width: 450px;height: 60px;margin-left: 30px">{{item.title}}</span>-->
-      <!--                    <span style="margin-left: 220px;height: 50px;width: 100px;font-size: 20px">￥{{item.price}}</span>-->
-      <!--                  </div>-->
-      <!--          </el-card>-->
-      <!--        </el-col>-->
-      <!--      </div>-->
-      <!--    </div>-->
-
       <items-body></items-body>
-<!--      <div id="pay" :class="{fixedPay:!isDisplay}">-->
-<!--        <shop-cart-pay ref="child"></shop-cart-pay>-->
-<!--      </div>-->
     </div>
 
   </div>
 </template>
 
 <script>
-// import ShopCartPay from "../../components/user/shopcart/ShopCartPay";
 import ItemsBody from "../../components/user/shopcart/ItemsBody";
 export default {
   name: "MyOrders",

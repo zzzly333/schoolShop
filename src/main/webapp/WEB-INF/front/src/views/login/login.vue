@@ -26,7 +26,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
 
@@ -84,7 +83,7 @@ export default {
       })
     },
     userLogin(){
-      router.push('/home')
+      router.push('/schoolshop')
       store.commit('login','')
       // let p = false
       // this.$axios({

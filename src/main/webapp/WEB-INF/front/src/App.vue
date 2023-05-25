@@ -1,18 +1,12 @@
 <template>
   <div id="app">
-    <top-menu :class="{hide:this.$store.state.hideUsr}"></top-menu>
-    <back-page1 :class="{hide:this.$store.state.hideManager}"></back-page1>
-    <login  :class="{hide:this.$store.state.hideLogin}"></login>
+    <router-view></router-view>
   </div>
 </template>
 <script>
-import TopMenu from "./components/user/topmenu/TopMenu";
-import BackPage1 from "./views/manager/backPage1";
-import Login from "./views/login/login";
-
 export default {
-  name: 'App',
-  components:{TopMenu,BackPage1,Login}
+  name: 'app',
+  components:{}
 }
 </script>
 <style lang="less">

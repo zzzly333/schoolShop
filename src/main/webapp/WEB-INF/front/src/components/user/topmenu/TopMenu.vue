@@ -2,32 +2,28 @@
   <div class="menu-div">
     <div id="menuDiv">
       <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="inputvalue" :style="search"></el-input>
-      <el-menu  default-active="1" class="el-menu-demo" mode="horizontal" >
-        <el-menu-item index="1" @click="getGoods" ><top-menu-item path="/home">首页</top-menu-item></el-menu-item>
-        <el-menu-item index="2"><top-menu-item path="/orders">订单记录</top-menu-item></el-menu-item>
-        <el-menu-item index="3" @click="getCart"><top-menu-item path="/shopcart">购物车</top-menu-item></el-menu-item>
-        <el-menu-item index="4" id="profile"><top-menu-item path="/profile">会员中心</top-menu-item></el-menu-item>
-
-        <!--        <el-menu-item index="4" id="profile" :class="{show:$store.state.isLogin}"><top-menu-item path="/profile">我的</top-menu-item></el-menu-item>-->
-        <!--        <el-menu-item index="5" id="loginInMenu" :class="{show:!$store.state.isLogin}"><top-menu-item path="/login">登录</top-menu-item></el-menu-item>-->
+      <el-menu  router :default-active="default_active" class="el-menu-demo" mode="horizontal" >
+        <el-menu-item index="/schoolshop/home" @click="getGoods" ><div class="top-item"> 首页</div></el-menu-item>
+        <el-menu-item index="/schoolshop/orders"><div class="top-item">订单记录</div></el-menu-item>
+        <el-menu-item index="/schoolshop/shopcart" @click="getCart"><div class="top-item">购物车</div></el-menu-item>
+        <el-menu-item index="/schoolshop/profile" id="profile"><div class="top-item">会员中心</div></el-menu-item>
       </el-menu>
-
     </div>
     <div>
-      <router-view ></router-view>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import TopMenuItem from "./TopMenuItem";
+
 import store from "../../../store";
 
 export default {
   name: "TopMenu",
-  components: {TopMenuItem},
   data(){
     return{
+      default_active:"/schoolshop/home",
       isShow: false,
       search:{
         width:"300px",
@@ -78,6 +74,12 @@ export default {
 
 .show{
   display: none;
+}
+.top-item{
+  margin: 0;
+  padding: 0;
+  width: 68px;
+  text-align: center;
 }
 .menu-div{
   width: 100%;
