@@ -20,7 +20,7 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping("/login")
-    @CrossOrigin(origins = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public User login(User checkUser) throws Exception {
         User user = null;
         user = loginService.findUser(checkUser);

@@ -146,7 +146,7 @@ export default {
   methods: {
     // 获取物品列表
     async getUserList() {
-      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/getGoodsType");
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getGoodsType");
       console.log('getUserList:');
       console.log(result)
       this.userlist = result.data
@@ -169,7 +169,7 @@ export default {
       // async 和 await 配套使用，这样异步调用接口
       console.log('addForm:')
       console.log(this.addForm)
-      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/addGoodsType",qs.stringify(this.addForm));
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/addGoodsType",qs.stringify(this.addForm));
       console.log('addUser:')
       console.log(result)
 
@@ -190,7 +190,7 @@ export default {
     // 修改物品信息并提交
     async editUserInfo() {
       // 发起修改物品信息接口
-      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/updateGoodsType", qs.stringify(this.editForm));
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/updateGoodsType", qs.stringify(this.editForm));
       console.log(result);
       //this.editForm="";
       if (result.status  != '200') {
@@ -222,7 +222,7 @@ export default {
       }
 
       // 删除操作
-      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/delGoodsType",qs.stringify(row));
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/delGoodsType",qs.stringify(row));
       console.log('removeUserById:')
       console.log(result)
       if (result.status  != '200') {

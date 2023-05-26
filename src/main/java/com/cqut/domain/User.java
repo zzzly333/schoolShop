@@ -17,16 +17,6 @@ public class User {
         this.state = state;
     }
 
-    public User(String name, String username, String password) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
     public String getId() {
         return id;
@@ -68,7 +58,7 @@ public class User {
         this.address = address;
     }
 
-    public String isState() {
+    public String getState() {
         return state;
     }
 
