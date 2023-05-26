@@ -18,7 +18,7 @@ public class goodsTypeController {
 
     @ResponseBody
     @RequestMapping(value = "/getGoodsType")
-    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    @CrossOrigin(origins = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public List<goodsType> getGoodsType() throws Exception {
         List<goodsType> goodsType = null;
         goodsType = goodsTypeService.getGoodsType();
@@ -28,25 +28,26 @@ public class goodsTypeController {
             System.out.println(goodsType);
             return goodsType;
 //        }
+
     }
 
     @ResponseBody
     @RequestMapping(value = "/addGoodsType")
-    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    @CrossOrigin(origins = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public void addGoodsType(goodsType goodsType) throws Exception {
         goodsTypeService.addGoodsType(goodsType);
     }
 
     @ResponseBody
     @RequestMapping(value = "/delGoodsType")
-    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    @CrossOrigin(origins = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public void delGoodsType(goodsType goodsType) throws Exception {
         goodsTypeService.delGoodsType(goodsType);
     }
 
     @ResponseBody
     @RequestMapping(value = "/updateGoodsType")
-    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    @CrossOrigin(origins = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public void updateGoodsType(goodsType goodsType) throws Exception {
         goodsTypeService.updateGoodsType(goodsType);
     }

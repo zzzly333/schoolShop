@@ -43,14 +43,12 @@ export default {
     state.hideManager = true
   },
   login(state,user){
-    state.hideUsr = false
-    state.hideManager = true
-    state.hideLogin = true
-    // state.user.username = user.username
-    // state.user.password = user.password
-    // state.user.nickname = user.nickname
-    // state.user.gender = user.gender
-    // state.user.tel = user.tel
+    state.user.id = user.id
+    state.user.name = user.name
+    state.user.username = user.username
+    state.user.password = user.password
+    state.user.address = user.address
+    state.user.state = user.state
   },
   getGoods(state,data){
     state.items = data

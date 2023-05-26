@@ -82,9 +82,14 @@ export default {
         console.log('传输失败');
       })
     },
-    userLogin(){
-      router.push('/schoolshop')
-      store.commit('login','')
+    async userLogin(){
+      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/login",{
+        username:this.username,
+        password:this.password
+      });
+      store.commit('login',result.data)
+      console.log(result)
+      await router.push('/schoolshop')
       // let p = false
       // this.$axios({
       //   url:"http://localhost:8080/Library_war_exploded/ValidateLoginServlet",
@@ -134,14 +139,14 @@ export default {
       this.p()
     },
     log() {
-      // if(this.username=='' && this.password=='')
-      //   this.$message.error("输入不能为空！")
-      // else{
-      //   if(this.commonUsr)
+      if(this.username=='' && this.password=='')
+        this.$message.error("输入不能为空！")
+      else{
+        if(this.commonUsr)
           this.userLogin()
-        // else
-        //   this.managerLogin()
-      // }
+        else
+          this.managerLogin()
+      }
     },
     p(){
       // if(this.result)
