@@ -37,7 +37,7 @@ public class goodserManager {
         this.password = password;
     }
 
-    public String isState() {
+    public String getState() {
         return state;
     }
 

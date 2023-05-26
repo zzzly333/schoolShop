@@ -37,7 +37,7 @@ public class saleManager {
         this.password = password;
     }
 
-    public String isState() {
+    public String getState() {
         return state;
     }
 
