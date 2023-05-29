@@ -185,11 +185,11 @@ export default {
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/addSManager",qs.stringify(this.addForm));
       console.log('addSManager:')
       console.log(result)
-
       if (result.status != '200') {
         return this.$Message.error('添加失败！')
       }
       this.addDialogVisible = false;
+      this.getPage()
       this.getUserList();
       this.$Message.success('添加成功！')
     },
@@ -226,13 +226,9 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).catch(err => err);
-
-      // console.log(confirmResult);
-
       if (confirmResult != "confirm") {
         return this.$Message.info('已经取消删除！');
       }
-
       // 删除操作
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/delSManager",qs.stringify(row));
       console.log('removeSManagerById:')
@@ -241,6 +237,7 @@ export default {
         return this.$Message.error('删除失败！');
       }
       this.$Message.success('删除成功！');
+      this.getPage()
       this.getUserList();
     },
 
@@ -255,28 +252,6 @@ export default {
       this.editDialogVisible = false
       this.getUserList();
     },
-    handleAvatarSuccess(res, file) {
-      console.log(file);
-      // http://localhost:8083//upload/f18fa1b5-e4cf-43b4-a6ea-08934425710c_.jpeg
-      this.addForm.goodsImage = "http://localhost:8083"+res.data.src;
-      // URL.createObjectURL(file.raw);
-    },
-    handleAvatarSuccess2(res, file) {
-      console.log(file);
-      // http://localhost:8083//upload/f18fa1b5-e4cf-43b4-a6ea-08934425710c_.jpeg
-      this.editForm.goodsImage = "http://localhost:8083"+res.data.src;
-      // URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      // const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 4;
-
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isLt2M;
-    }
-
   }
 }
 </script>

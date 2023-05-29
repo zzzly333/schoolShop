@@ -67,7 +67,8 @@
                         <el-input v-model="addForm.goodsType"></el-input>
                     </el-form-item>
                     <el-form-item label="商品图片" prop="goodsImage">
-                        <el-upload class="avatar-uploader" action="/api/uploadServlet" :show-file-list="false"
+                        <el-upload class="avatar-uploader" action="http://localhost:8081/schoolShop_war_exploded/uploadImage" :show-file-list="false"
+                                   name="file"
                                    :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                             <img v-if="addForm.goodsImage" :src="addForm.goodsImage" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -109,7 +110,7 @@
                         <el-input v-model="editForm.goodsType"></el-input>
                     </el-form-item>
                     <el-form-item label="商品图片" prop="goodsImage">
-                        <el-upload class="avatar-uploader" action="/api/uploadServlet" :show-file-list="false"
+                        <el-upload class="avatar-uploader" action="http://localhost:8081/schoolShop_war_exploded/uploadImage" :show-file-list="false"
                                    :on-success="handleAvatarSuccess2" :before-upload="beforeAvatarUpload">
                             <img v-if="editForm.goodsImage" :src="editForm.goodsImage" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -142,6 +143,7 @@
 
 <script>
 import qs from 'qs'
+import axios from "axios";
 export default {
   data() {
     return {
@@ -237,6 +239,7 @@ export default {
         return this.$Message.error('添加失败！')
       }
       this.addDialogVisible = false;
+      this.getPage();
       this.getUserList();
       this.$Message.success('添加成功！')
 
@@ -289,6 +292,7 @@ export default {
         return this.$Message.error('删除失败！');
       }
       this.$Message.success('删除成功！');
+      this.getPage();
       this.getUserList();
     },
 
@@ -304,21 +308,15 @@ export default {
       this.getUserList();
     },
     handleAvatarSuccess(res, file) {
-      console.log(file);
-      // http://localhost:8083//upload/f18fa1b5-e4cf-43b4-a6ea-08934425710c_.jpeg
-      this.addForm.goodsImage = "http://localhost:8083"+res.data.src;
-      // URL.createObjectURL(file.raw);
+      console.log(res)
+      this.addForm.goodsImage = 'http://localhost:80/images/'+res.url;
     },
     handleAvatarSuccess2(res, file) {
-      console.log(file);
-      // http://localhost:8083//upload/f18fa1b5-e4cf-43b4-a6ea-08934425710c_.jpeg
-      this.editForm.goodsImage = "http://localhost:8083"+res.data.src;
-      // URL.createObjectURL(file.raw);
+      console.log(res)
+      this.editForm.goodsImage = 'http://localhost:80/images/'+res.url;
     },
     beforeAvatarUpload(file) {
-      // const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 4;
-
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
