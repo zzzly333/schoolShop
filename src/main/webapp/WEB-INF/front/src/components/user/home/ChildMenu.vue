@@ -44,16 +44,20 @@ button{
   width: 105px;
 }
 #child-menu{
-  border: 1px #ece0e0 solid;
-  border-top: 0px;
-  border-bottom: 0px;
-  margin: 100px 250px 0px 250px;
-  height: 60px;
+  /*border: 1px #ece0e0 solid;*/
+  /*border-top: 0px;*/
+  /*border-bottom: 0px;*/
+  margin: 80px 0px 0px 0;
+  height: 40px;
   position: relative;
   float: top;
+  padding: 0;
 }
 #child-menu div{
-  display: inline-block;
   padding: 10px 0px 10px 10px;
+  float: left;
+  height: 40px;
+  margin-top: -20px;
 }
+
 </style>

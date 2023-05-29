@@ -1,13 +1,13 @@
 <template>
   <div class="items">
-    <div class="shop-cart-item" v-for="(item,index) in $store.state.shopcart" :key="item.id">
+    <div class="shop-cart-item" v-for="(item,index) in $store.state.shopCart" :key="item.goodsno">
       <el-col >
         <el-card shadow="hover"  >
           <div class="item-message" >
-            <input class="single" type="checkbox" style="margin-right: 20px" @click="check(index,item)" :checked="$store.state.checked[index]">
+            <input class="single" type="checkbox" @click="check(index,item)" :checked="$store.state.checked[index]">
             <span class="img" ><img :src="item.img"></span>
-            <span style="width: 450px;height: 60px;margin-left: 30px">{{item.title}}</span>
-            <span style="margin-left: 220px;height: 50px;width: 100px;font-size: 20px">￥{{item.price}}</span>
+            <span class="goods-name" >{{item.goodsName}}</span>
+            <span class="goods-price" >￥{{item.goodsPrice}}</span>
           </div>
         </el-card>
       </el-col>
@@ -111,6 +111,15 @@ export default {
 </script>
 
 <style scoped>
+.single{
+  margin-right: 20px
+}
+.goods-name{
+  width: 450px;height: 60px;margin-left: 30px
+}
+.goods-price{
+  margin-left: 220px;height: 50px;width: 100px;font-size: 20px
+}
 .img{
   border: 1px solid #ead5d5;
   height: 100px;
@@ -119,10 +128,6 @@ export default {
 span{
   display:inline-block;
 }
-
-/*.color{*/
-/*  border:1px #fc9375 solid;*/
-/*}*/
 .shop-cart-item{
   width: 100%;
   height: 150px;
@@ -137,31 +142,11 @@ input[type=checkbox],span{
   height: 20px;
   width: 20px;
 }
-/*.saler{*/
-/*  flex: 1;*/
-/*  border-bottom: 0.5px #d4d2d2 solid;*/
-/*  height: 20px;*/
-/*  padding: 0 5px;*/
-/*}*/
+
 .item-message{
   flex: 4;
   height: 70px;
 }
-/*.fixedPay{*/
-/*  height: 100px;*/
-/*  width: 70%;*/
-/*  position: fixed;*/
-/*  margin-top: 530px;*/
-/*  box-shadow: 0 4px 8px 0 rgb(138, 136, 136), 0 6px 20px 0 rgb(115, 115, 115);*/
-/*}*/
-/*#pay,.fixedPay{*/
-/*  padding: 20px;*/
-/*  background-color: #f5f2f2;*/
-/*  border-radius: 10px;*/
-/*  height: 50px;*/
-
-
-/*}*/
 .items{
   padding: 50px;
   flex: 20;

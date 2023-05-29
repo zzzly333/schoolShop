@@ -10,7 +10,7 @@ export default new Vuex.Store({
     obj: '',
     isSelectAll: false,
     checked:[false,false,false,false,false,false,false,false,false,false],
-    items:[],
+    goods:[],
     isLogin: true,
     hideUsr:true,
     hideManager:true,
@@ -23,7 +23,7 @@ export default new Vuex.Store({
       address:'',
       state:'',
     },
-    shopcart:[],
+    shopCart:[],
     indexGoods:'',
     manager:''
   },

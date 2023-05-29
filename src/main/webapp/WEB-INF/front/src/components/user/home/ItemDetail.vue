@@ -5,20 +5,23 @@
 
       <div class="item">
         <div class="imgs">
-          <!--        <template>-->
-          <!--          <el-carousel indicator-position="outside"  :key="item" height="500px" >-->
-          <!--            <el-carousel-item v-for="item in 4">-->
-          <!--              <h3>{{ item }}</h3>-->
-          <!--            </el-carousel-item>-->
-          <!--          </el-carousel>-->
-          <!--        </template>-->
+
         </div>
         <div class="info">
-          <span class="title" style="height: 50px;font-size: 20px"><p>{{this.$store.state.items[this.$store.state.indexGoods].title}}</p></span>
-          <!--        <span class="label" style="height: 80px">{{this.$store.state.items[this.$route.params.index].title}}</span>-->
-          <span class="text" style="height: 300px">描述：<p>{{this.$store.state.items[this.$store.state.indexGoods].text}}</p></span>
-          <span class="price" style="height: 60px;font-size: 20px">价格： <p >￥{{this.$store.state.items[this.$store.state.indexGoods].price}}</p></span>
-          <span class="add-to-cart"><el-button style="margin: auto;display: block;margin-top: 30px" @click="addCart">加入购物车</el-button></span>
+          <span class="title">
+            <h3>{{this.$store.state.goods[this.$store.state.indexGoods].goodsName}}</h3>
+          </span>
+          <span class="text" >
+            <h4>描述：</h4>
+            <p>{{this.$store.state.goods[this.$store.state.indexGoods].goodsInfo}}</p>
+          </span>
+          <span class="price">
+            <h4 style="margin: 0">价格：</h4>
+            <p >￥{{this.$store.state.goods[this.$store.state.indexGoods].goodsPrice}}</p>
+          </span>
+          <span class="add-to-cart" style="margin-top: 40px">
+            <el-button style="display: block;margin: 30px auto auto;" @click="addCart">加入购物车</el-button>
+          </span>
         </div>
       </div>
     </div>
@@ -39,7 +42,7 @@ export default {
         url:"http://localhost:8080/Library_war_exploded/AddCartServlet",
         method:'post',
         params:{
-          goodsno:store.state.items[store.state.indexGoods].goodsno,
+          goodsno:store.state.goods[store.state.indexGoods].goodsno,
           user:store.state.user.username
         },
         headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
@@ -55,6 +58,18 @@ export default {
 </script>
 
 <style scoped>
+.title{
+  height: 50px;font-size: 20px
+}
+.price{
+  height: 60px;font-size: 20px
+}
+.text{
+  height: 300px
+}
+.text p{
+  text-indent: 50px;
+}
 .el-page-header{
   margin: 80px 0px 20px 100px;
 }
@@ -65,6 +80,8 @@ export default {
   font-size: 28px;
   color: #f64f4f;
   display: inline;
+  text-align: center;
+  margin-top: 0;
 }
 .el-carousel__item h3 {
   color: #475669;
@@ -97,10 +114,15 @@ export default {
   flex: 1;
   border-left: 1px solid rosybrown;
   margin-top: 20px;
+  text-align: left;
+}
+.price p{
+  display: block;
 }
 .detail{
   height: 700px;border: 1px solid #fcfbfb;
   padding: 0px 100px;
+  margin-bottom: 50px;
 }
 .body{
   margin: 0px 100px;

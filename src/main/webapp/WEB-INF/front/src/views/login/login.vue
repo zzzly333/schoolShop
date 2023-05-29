@@ -9,18 +9,25 @@
       </div>
       <div id="login">
         <div class="input" :class="{hide:this.login}">
-          <el-input placeholder="用户名"  prefix-icon="el-icon-user-solid" v-model="username"></el-input>
+          <div class="role" :class="{hide:!this.manager}">
+            <el-radio-group v-model="radio">
+              <el-radio :label="1">商品专员</el-radio>
+              <el-radio :label="2">营销经理</el-radio>
+              <el-radio :label="3">系统管理员</el-radio>
+            </el-radio-group>
+          </div>
+          <el-input placeholder="用户名/手机号"  prefix-icon="el-icon-user-solid" v-model="username"></el-input>
           <el-input placeholder="密码"  type="password" style="margin-top: 20px" prefix-icon="el-icon-lock" v-model="password"></el-input>
         </div>
-        <div class="button" :class="{hide:login}">
+        <div class="button" :class="{hide:this.login}">
           <el-button type="primary" @click="log">登录</el-button>
           <a href="javascript:" @click="change" :class="{a:true,hide:this.manager}">去注册 ></a>
         </div>
-        <div class="input" :class="{hide:!login}">
-          <el-input placeholder="昵称"  prefix-icon="el-icon-user-solid" v-model="nickname"></el-input>
-          <el-input placeholder="密码(至少8位)" type="password" style="margin-top: 20px" prefix-icon="el-icon-lock" v-model="password1"></el-input>
+        <div class="input" :class="{hide:!this.login}">
+          <el-input placeholder="手机号"  prefix-icon="el-icon-user-solid" v-model="username"></el-input>
+          <el-input placeholder="密码(至少8位)" type="password" style="margin-top: 20px" prefix-icon="el-icon-lock" v-model="password"></el-input>
         </div>
-        <div class="button" :class="{hide:!login}">
+        <div class="button" :class="{hide:!this.login}">
           <el-button type="primary" @click="regist">注册</el-button>
           <a  href="javascript:" @click="change" :class="{a:true,hide:this.manager}">< 去登录</a>
         </div>
@@ -33,34 +40,39 @@
 
 <script type="text/javascript">
 import router from '../../router/index'
-import store from '../../store/index'
+import axios from "axios";
 export default {
   data() {
     return {
       commonUsr: true,
       manager: false,
-      username: '',
+      username:'',
+      tel: '',
       password: '',
-      code:'',
-      codeWrong:false,
+      // code:'',
+      // codeWrong:false,
       upWrong:false,
       warn:'',
       result:false,
       login:false,
-      nickname:'',
-      password1:'',
       registed:false,
-
+      radio: 1
     }
   },
   methods: {
+    clearInput(){
+      this.username = ''
+      this.password = ''
+    },
     change(){
       this.login = !this.login
+      this.clearInput()
     },
     changeToUser() {
       if (!this.commonUsr) {
         this.manager = false
         this.commonUsr = true
+        this.clearInput()
       }
 
     },
@@ -69,77 +81,64 @@ export default {
         this.manager = true
         this.commonUsr = false
         this.login = false
+        this.clearInput()
       }
     },
-    getGoods(str){
-      this.$axios({
-        url:"http://localhost:8080/Library_war_exploded/"+str,
-        method:'post',
-        headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-      }).then((result) => {
-        this.$store.commit("getGoods",result.data)
-      }, function () {
-        console.log('传输失败');
-      })
-    },
     async userLogin(){
-      const result = await this.$axios.post("http://localhost:8081/shoolShop_war_exploded/login",{
-        username:this.username,
-        password:this.password
-      });
-      store.commit('login',result.data)
-      console.log(result)
-      await router.push('/schoolshop')
-      // let p = false
-      // this.$axios({
-      //   url:"http://localhost:8080/Library_war_exploded/ValidateLoginServlet",
-      //   method:'post',
-      //   params:{
-      //     username:this.username,
-      //     password:this.password,
-      //   },
-      //   headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-      // }).then((result) => {
-      //   if(result.data.exit){
-      //     router.push('/home')
-      //     store.commit('login',result.data)
-      //     console.log(this.$store.state.user)
-      //     p = true
-      //     this.getGoods("GetGoodsServlet")
-      //   }
-      // }, function () {
-      //   console.log('传输失败');
-      // })
-      // if (p)
-      //   this.result = true
-      // this.p()
-    },
-    managerLogin(){
-      let p = false
-      this.$axios({
-        url:"http://localhost:8080/Library_war_exploded/ManagerServlet",
-        method:'post',
-        params:{
-          id:this.username,
-          password:this.password,
-        },
-        headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+      let param = new URLSearchParams()
+      param.append('username', this.username)
+      param.append('password', this.password)
+      await axios({
+        method: 'post',
+        url: "http://localhost:8081/shoolShop_war_exploded/userLogin",
+        data: param
+      }).then((result)=>{
+        if(result.data === "")
+          this.$message.error("用户名或密码错误！")
+        else {
+          this.$store.commit('login',result.data)
+          axios.post("http://localhost:8081/shoolShop_war_exploded/getGoods"
+          ).then(result=>{
+            this.$store.commit('getGoods',result.data)
+          })
+          this.$message.success("登陆成功！")
+          router.push('/schoolshop')
+        }
+
       })
-        .then((result) => {
-          if(result.data.exit){
-            store.commit('managerLogin')
-            p = true
-            this.getGoods("ManagerGetGoodsServlet")
-          }
-        }, function () {
-          console.log('传输失败');
-        })
-      if(p)
-        this.result = true
-      this.p()
+    },
+    async managerLogin() {
+      let param = new URLSearchParams()
+      param.append('username', this.username)
+      param.append('password', this.password)
+      let url = 'http://localhost:8081/shoolShop_war_exploded/'
+      if (this.radio === 1)
+          url += 'manager1Login'
+      else if(this.radio === 2)
+          url += 'manager2Login'
+      else if(this.radio === 3)
+          url += 'manager3Login'
+
+      await axios({
+        method: 'post',
+        url: url,
+        data: param
+      }).then((result) => {
+        if (result.data === "")
+          this.$message.error("用户名或密码错误！")
+        else {
+          this.$message.success("登陆成功！")
+          if(this.radio === 1)
+              router.push('/backPage1')
+          else if(this.radio === 2)
+              router.push('/backPage2')
+          else if(this.radio === 3)
+              router.push('/backPage3')
+        }
+      })
     },
     log() {
-      if(this.username=='' && this.password=='')
+      if(this.username==='' && this.password==='')
         this.$message.error("输入不能为空！")
       else{
         if(this.commonUsr)
@@ -148,58 +147,37 @@ export default {
           this.managerLogin()
       }
     },
-    p(){
-      // if(this.result)
-      this.$message.success("登陆成功！")
-      // else
-      //   this.$message.error("用户名或密码错误！")
-    },
-    regist(){
-      let p = false
-      if(this.tel=='' && this.password1=='')
+    async regist(){
+      if(this.username==='' && this.password==='')
         this.$message.error("输入不能为空！")
       else{
-        this.$axios({
-          url:"http://localhost:8080/Library_war_exploded/ValidateRegisterServlet",
+        let param = new URLSearchParams()
+        param.append('username', this.username)
+        param.append('password', this.password)
+        await axios({
+          url:"http://localhost:8081/shoolShop_war_exploded/regist",
           method:'post',
-          params:{
-            tel:this.tel,
-            password:this.password1
-          },
-          headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+          data:param
         }).then(result =>{
-          if(!result.data.exit){
-            let msg = result.data.msg
-            store.commit(
-              'login',
-              {
-                username:msg,
-                password:this.password,
-                nickname:'',
-                gender:'',
-                tel:this.tel
-              }
-            )
-            router.replace('/home')
-            this.getGoods("GetGoodsServlet")
-            p = true
+          if(result.data == ""){
+            this.$message.success("注册成功！")
           }
-        }, function () {
-          console.log('传输失败');
+          else
+            this.$message.error("该手机号已经注册过！")
         })
-        if(!p)
-          this.registed = true
-        // if(!this.registed)
-        this.$message.success("注册成功！")
-        // else
-        // this.$message.warning("该手机号已经注册过！")
       }
     }
   }
 }
 </script>
 <style scoped>
-
+.role{
+  width: 400px;
+  margin:-20px 0px 30px -60px;
+}
+.el-radio__input /deep/ .el-radio__label{
+  color: #da1616;
+}
 .input-frame{
   /*position: relative;/*/
   height: 93vh;

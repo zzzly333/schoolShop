@@ -51,7 +51,7 @@ export default {
     state.user.state = user.state
   },
   getGoods(state,data){
-    state.items = data
+    state.goods = data
   },
   detail(state,index){
     state.indexGoods = index

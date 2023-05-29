@@ -5,15 +5,24 @@
 
 <mapper namespace="com.cqut.mapper.LoginMapper">
     <select id="findUser" resultType= "User" parameterType="User">
-        SELECT * FROM users where username = #{username} and password = #{password}
+        select * from user where username = #{username} and password = #{password}
     </select>
-<!--    <insert id="addGoods" parameterType="goods">-->
-<!--        insert into goods values (#{id},#{goodsName},#{goodsType},#{goodsPrice},#{goodsNum},#{goodsImage},#{goodsInfo},#{state})-->
-<!--    </insert>-->
-<!--    <delete id="delGoods" parameterType="goods">-->
-<!--        delete from goods where id=#{id}-->
-<!--    </delete>-->
-<!--    <update id="updateGoods" parameterType="goods">-->
-<!--        update goods set goodsName=#{goodsName},goodsType=#{goodsType},goodsPrice=#{goodsPrice},goodsNum=#{goodsNum},goodsImage=#{goodsImage},goodsInfo=#{goodsInfo},state=#{state} where id=#{id}-->
-<!--    </update>-->
+    <select id="findManager1" resultType="goodserManager" parameterType="goodserManager">
+        select * from goodsermanager where username = #{username} and password = #{password}
+    </select>
+    <select id="findManager2" resultType="saleManager" parameterType="saleManager">
+        select * from salemanager where username = #{username} and password = #{password}
+    </select>
+    <select id="findManager3" resultType="systemManager" parameterType="systemManager">
+        select * from systemmanager where username = #{username} and password = #{password}
+    </select>
+    <select id="checkRegisted" resultType="User" parameterType="User">
+        select * from user where username = #{username} and password = #{password};
+    </select>
+    <select id="getMaxUserId" resultType="String">
+        select max(id) from user
+    </select>
+    <insert id="insertUser" parameterType="User">
+        insert into user values (#{id},"",#{username},#{password},"","启用")
+    </insert>
 </mapper>

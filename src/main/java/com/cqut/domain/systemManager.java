@@ -4,13 +4,13 @@ public class systemManager {
     private String id;
     private String username;
     private String password;
-    private String state;
+//    private String state;
 
-    public systemManager(String id, String username, String password, String state) {
+    public systemManager(String id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.state = state;
+//        this.state = state;
     }
 
     public String getId() {
@@ -37,13 +37,13 @@ public class systemManager {
         this.password = password;
     }
 
-    public String isState() {
-        return state;
-    }
+//    public String isState() {
+//        return state;
+//    }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+//    public void setState(String state) {
+//        this.state = state;
+//    }
 
     @Override
     public String toString() {
@@ -51,7 +51,7 @@ public class systemManager {
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", state=" + state +
+//                ", state=" + state +
                 '}';
     }
 }

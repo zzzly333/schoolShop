@@ -1,6 +1,6 @@
 <template>
   <div class="turn-page">
-    <el-pagination layout="prev, pager, next" :total="this.$store.state.items.length" :page-size="24" :class="pageStyle"></el-pagination>
+    <el-pagination layout="prev, pager, next" :total="this.$store.state.goods.length" :page-size="24" :class="pageStyle"></el-pagination>
   </div>
 </template>
 

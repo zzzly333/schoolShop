@@ -1,14 +1,14 @@
 <template>
 <div class="item-child-body">
   <div class="item grid-item" @click="detail(index)"
-       v-for="(goods,index) in this.$store.state.items" :key="index"
-        v-if="goods.num == 1">
+       v-for="(goods,index) in this.$store.state.goods" :key="index"
+        v-if="goods.state == '启用'">
     <div class="img">
       <img :src="goods.img">
     </div>
     <div class="info">
-      <div class="msg">{{goods.title}}</div>
-      <div class="price">￥{{goods.price}}</div>
+      <div class="msg">{{goods.goodsName}}</div>
+      <div class="price">￥{{goods.goodsPrice}}</div>
     </div>
 
   </div>
@@ -33,7 +33,7 @@ export default {
       return i <= this.$store.state.items.length
     },
     detail(index){
-      this.$router.push('/detail')
+      this.$router.push('/schoolshop/detail')
       this.$store.commit('detail',index)
     }
   }
@@ -52,8 +52,10 @@ export default {
   height: 97%;
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-template-rows: auto auto auto auto auto auto ;
+  grid-template-columns: 235px 235px 235px 235px;
+  grid-template-rows: 304px 304px 304px 304px 304px 304px ;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
 }
 div,span{
 }

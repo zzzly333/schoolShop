@@ -26,11 +26,10 @@ export default {
       default_active:"/schoolshop/home",
       isShow: false,
       search:{
-        width:"300px",
+        width:"500px",
         position: 'absolute',
         zIndex: "10",
-        margin:'10px 0px 10px 500px',
-        display:'none'
+        margin:'10px 0px 10px -500px',
       },
       tag:'li',
       inputvalue:'',
@@ -38,25 +37,16 @@ export default {
   },
   methods:{
     getGoods(){
-      this.$axios({
-        url:"http://localhost:8080/Library_war_exploded/GetGoodsServlet",
-        method:'post',
-        headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-      }).then((result) => {
+      this.$axios.post("http://localhost:8081/shoolShop_war_exploded/getGoods"
+      ).then((result) => {
         this.$store.commit("getGoods",result.data)
       }, function () {
         console.log('传输失败');
       })
     },
     getCart(){
-      this.$axios({
-        url:"http://localhost:8080/Library_war_exploded/GetCartServlet",
-        method:'post',
-        params:{
-          user: store.state.user.username
-        },
-        headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-      }).then((result) => {
+      this.$axios.post("http://localhost:8081/shoolShop_war_exploded/getShopCart"
+      ).then((result) => {
         console.log(result.data)
         store.commit("getCart",result.data)
       }, function () {
@@ -72,9 +62,9 @@ export default {
   padding: 0;
 }
 
-.show{
-  display: none;
-}
+/*.show{*/
+/*  display: none;*/
+/*}*/
 .top-item{
   margin: 0;
   padding: 0;

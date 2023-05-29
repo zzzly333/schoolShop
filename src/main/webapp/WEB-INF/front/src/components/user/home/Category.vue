@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 .category{
-  margin-top: 100px;
+  margin-top: 200px;
   position: fixed;
   width: 100%;
   height: 300px;
