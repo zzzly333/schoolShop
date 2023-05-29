@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 @Service("SManagerService")
 public class SManagerServiceImpl implements SManagerService {
     @Autowired
     public SManagerMapper SManagerMapper;
     @Override
-    public List<saleManager> getSManager() throws Exception {
-        List<saleManager> saleManager = SManagerMapper.getSManager();
+    public List<saleManager> getSManager(Map map) throws Exception {
+        List<saleManager> saleManager = SManagerMapper.getSManager(map);
         if(saleManager==null)
             throw new Exception("营销经理不存在");
         else

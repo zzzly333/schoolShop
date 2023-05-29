@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class GManagerController {
@@ -21,9 +23,14 @@ public class GManagerController {
     @ResponseBody
     @RequestMapping(value = "/getGManager")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-    public List<goodserManager> getGManager() throws Exception {
+    public List<goodserManager> getGManager(String pagenum,String pagesize) throws Exception {
         List<goodserManager> goodserManager = null;
-        goodserManager = GManagerService.getGManager();
+        int begin = (Integer.parseInt(pagenum)-1)*Integer.parseInt(pagesize);
+        int end = Integer.parseInt(pagesize);
+        Map map = new HashMap();
+        map.put("begin",begin);
+        map.put("end",end);
+        goodserManager = GManagerService.getGManager(map);
         System.out.println("getgoodserManager:");
         System.out.println(goodserManager);
         return goodserManager;

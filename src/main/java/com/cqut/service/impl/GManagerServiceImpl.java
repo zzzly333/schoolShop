@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("GManagerService")
 public class GManagerServiceImpl implements GManagerService {
     @Autowired
     public GManagerMapper GManagerMapper;
     @Override
-    public List<goodserManager> getGManager() throws Exception {
-        List<goodserManager> goodserManager = GManagerMapper.getGManager();
+    public List<goodserManager> getGManager(Map map) throws Exception {
+        List<goodserManager> goodserManager = GManagerMapper.getGManager(map);
         if(goodserManager==null)
             throw new Exception("营销经理不存在");
         else

@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("goodsService")
 public class goodsServiceImpl implements goodsService {
     @Autowired
     private goodsMapper goodsMapper;
     @Override
-    public List<goods> getGoods() throws Exception {
-        List<goods> goods = goodsMapper.getGoods();
+    public List<goods> getGoods(Map map) throws Exception {
+        List<goods> goods = goodsMapper.getGoods(map);
         if (goods==null)
             throw new Exception("商品不存在");
         else

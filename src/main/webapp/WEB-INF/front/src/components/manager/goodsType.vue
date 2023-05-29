@@ -96,7 +96,6 @@ export default {
   data() {
     return {
       queryInfo: {
-        query: '',
         pagenum: 1,
         pagesize: 5
       },
@@ -121,6 +120,7 @@ export default {
     }
   },
   created() {
+    this.getPage();
     this.getUserList();
   },
   watch: {
@@ -144,13 +144,22 @@ export default {
     }
   },
   methods: {
+    // 获取总数
+    async getPage() {
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getPage?table=goodstype")
+      console.log("getPage:")
+      console.log(result)
+      this.total = result.data
+    },
     // 获取物品列表
     async getUserList() {
-      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getGoodsType");
+      // let params = new FormData();
+      // params.append("pagenum",this.queryInfo.pagenum)
+      // params.append("pagesize",this.queryInfo.pagesize)
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getGoodsType?pagenum="+this.queryInfo.pagenum+"&pagesize="+this.queryInfo.pagesize);
       console.log('getUserList:');
       console.log(result)
       this.userlist = result.data
-      this.total = result.data.length
     },
     // pagesize 改变的事件
     handleSizeChange(newSize) {
@@ -265,7 +274,7 @@ export default {
       return isLt2M;
     }
 
-  }
+  },
 }
 </script>
 

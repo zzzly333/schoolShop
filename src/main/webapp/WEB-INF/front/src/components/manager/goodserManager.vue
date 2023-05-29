@@ -102,7 +102,6 @@ export default {
   data() {
     return {
       queryInfo: {
-        query: '',
         pagenum: 1,
         pagesize: 5
       },
@@ -128,6 +127,7 @@ export default {
     }
   },
   created() {
+    this.getPage();
     this.getUserList();
   },
   watch: {
@@ -151,13 +151,19 @@ export default {
     }
   },
   methods: {
+    // 获取总数
+    async getPage() {
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getPage?table=goodsermanager")
+      console.log("getPage:")
+      console.log(result)
+      this.total = result.data
+    },
     // 获取物品列表
     async getUserList() {
-      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getGManager");
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getGManager?pagenum="+this.queryInfo.pagenum+"&pagesize="+this.queryInfo.pagesize);
       console.log('getSManager:');
       console.log(result)
       this.userlist = result.data
-      this.total = result.data.length
     },
     // pagesize 改变的事件
     handleSizeChange(newSize) {

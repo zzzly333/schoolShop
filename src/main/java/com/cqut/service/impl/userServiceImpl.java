@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("userService")
 public class userServiceImpl implements userService {
     @Autowired
     public userMapper userMapper;
     @Override
-    public List<User> getUser() throws Exception {
-        List<User> users = userMapper.getUser();
+    public List<User> getUser(Map map) throws Exception {
+        List<User> users = userMapper.getUser(map);
         if(users==null)
             throw new Exception("用户不存在");
         else

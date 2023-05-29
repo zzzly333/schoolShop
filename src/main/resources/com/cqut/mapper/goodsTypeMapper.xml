@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.cqut.mapper.goodsTypeMapper">
-    <select id="getGoodsType" resultType= "goodsType" >
-        SELECT * FROM goodstype
+    <select id="getGoodsType" resultType= "goodsType" parameterType="java.util.Map">
+        SELECT * FROM goodstype limit #{begin},#{end}
     </select>
     <insert id="addGoodsType" parameterType="goodsType">
         insert into goodstype values (#{id},#{name},#{state})
@@ -16,4 +16,7 @@
     <update id="updateGoodsType" parameterType="goodsType">
         update goodstype set name=#{name},state=#{state} where id=#{id}
     </update>
+    <select id="getPage" resultType="int" parameterType="String">
+        select count(*) from ${_parameter}
+    </select>
 </mapper>

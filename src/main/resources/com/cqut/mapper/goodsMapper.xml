@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.cqut.mapper.goodsMapper">
-    <select id="getGoods" resultType= "goods" >
-        SELECT * FROM goods
+    <select id="getGoods" resultType= "goods" parameterType="java.util.Map">
+        SELECT * FROM goods limit #{begin},#{end}
     </select>
     <insert id="addGoods" parameterType="goods">
         insert into goods values (#{id},#{goodsName},#{goodsType},#{goodsPrice},#{goodsNum},#{goodsImage},#{goodsInfo},#{state})

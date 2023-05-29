@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.cqut.mapper.GManagerMapper">
-    <select id="getGManager" resultType= "goodserManager" >
-        SELECT * FROM goodsermanager
+    <select id="getGManager" resultType= "goodserManager" parameterType="java.util.Map">
+        SELECT * FROM goodsermanager limit #{begin},#{end}
     </select>
     <insert id="addGManager" parameterType="goodserManager">
         insert into goodsermanager values (#{id},#{username},#{password},#{state})
