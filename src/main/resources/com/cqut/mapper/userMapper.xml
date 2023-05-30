@@ -11,9 +11,12 @@
         insert into user values (#{id},#{name},#{username},#{password},#{address},#{state})
     </insert>
     <delete id="delUser" parameterType="User">
-        delete from user where id=#{id}
+        delete from user where username=#{username}
     </delete>
     <update id="updateUser" parameterType="User">
         update user set name=#{name},username=#{username},password=#{password},address=#{address},state=#{state} where id=#{id}
+    </update>
+    <update id="updateUser2" parameterType="java.util.Map">
+        update user set name=#{name},username=#{username},password=#{password},address=#{address} where id=#{id}
     </update>
 </mapper>

@@ -59,4 +59,18 @@ public class userController {
     public void updateUser(User user) throws Exception {
         userService.updateUser(user);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateUser2")
+    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    public void updateUser2(String id,String name,String username,String password,String address) throws Exception {
+        Map map = new HashMap();
+        map.put("id",id);
+        map.put("name",name);
+        map.put("username",username);
+        map.put("password",password);
+        map.put("address",address);
+        System.out.println(map);
+        userService.updateUser2(map);
+    }
 }

@@ -12,4 +12,5 @@ public interface userService {
     void addUser(User user) throws Exception;
     void delUser(User user) throws Exception;
     void updateUser(User user) throws Exception;
+    void updateUser2(Map map) throws Exception;
 }

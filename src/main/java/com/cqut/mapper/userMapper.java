@@ -10,4 +10,5 @@ public interface userMapper {
     void addUser(User user);
     void delUser(User user);
     void updateUser(User user);
+    void updateUser2(Map map);
 }

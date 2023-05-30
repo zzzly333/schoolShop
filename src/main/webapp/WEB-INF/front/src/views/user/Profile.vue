@@ -114,13 +114,12 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$axios({
-          url:"http://localhost:8080/Library_war_exploded/DeleteServlet",
+          url:"http://localhost:8081/schoolShop_war_exploded/delUser",
           method:'post',
           params:{
             type:'user',
-            user:this.$store.state.user.username
-          },
-          headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
+            user:this.$store.state.user
+          }
         }).then((result) => {
           this.$router.replace('/login')
         }, function () {
