@@ -16,4 +16,8 @@
     <update id="updateGoods" parameterType="goods">
         update goods set goodsName=#{goodsName},goodsType=#{goodsType},goodsPrice=#{goodsPrice},goodsNum=#{goodsNum},goodsImage=#{goodsImage},goodsInfo=#{goodsInfo},state=#{state} where id=#{id}
     </update>
+    <select id="getAllGoods" resultType="goods">
+        SELECT * FROM goods
+    </select>
+
 </mapper>

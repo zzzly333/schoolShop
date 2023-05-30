@@ -42,4 +42,9 @@ public class goodsTypeServiceImpl implements goodsTypeService {
     public int getPage(String table) {
         return goodsTypeMapper.getPage(table);
     }
+
+    @Override
+    public List<goodsType> getAllGoodsType() throws Exception {
+        return goodsTypeMapper.getALLGoodsType();
+    }
 }

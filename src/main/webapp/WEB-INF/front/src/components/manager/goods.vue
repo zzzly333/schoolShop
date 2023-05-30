@@ -64,7 +64,14 @@
                         <el-input v-model="addForm.goodsName"></el-input>
                     </el-form-item>
                   <el-form-item label="商品类型" prop="goodsType">
-                        <el-input v-model="addForm.goodsType"></el-input>
+                        <el-select v-model="addForm.goodsType" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :value="item.value"
+                            :disabled="item.disabled">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="商品图片" prop="goodsImage">
                         <el-upload class="avatar-uploader" action="http://localhost:8081/schoolShop_war_exploded/uploadImage" :show-file-list="false"
@@ -107,7 +114,14 @@
                         <el-input v-model="editForm.goodsName"></el-input>
                     </el-form-item>
                   <el-form-item label="商品类型" prop="goodsName">
-                        <el-input v-model="editForm.goodsType"></el-input>
+                        <el-select v-model="editForm.goodsType" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :value="item.value"
+                            :disabled="item.disabled">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="商品图片" prop="goodsImage">
                         <el-upload class="avatar-uploader" action="http://localhost:8081/schoolShop_war_exploded/uploadImage" :show-file-list="false"
@@ -128,7 +142,7 @@
                         <el-input v-model="editForm.goodsInfo"></el-input>
                     </el-form-item>
                   <el-form-item label="商品状态" prop="state">
-                        <el-input v-model="editForm.state"></el-input>
+                        <el-input :value="editForm.state"></el-input>
                     </el-form-item>
                 </el-form>
             </span>
@@ -170,12 +184,15 @@ export default {
       // 控制修改窗口的显示与隐藏
       editDialogVisible: false,
       editForm: {},
-      // 查找
+      // 查找d
       search:'',
-      filterList:[]
+      filterList:[],
+      // 商品类型选择
+      options: [],
     }
   },
   created() {
+    this.getAllGoodsType();
     this.getPage();
     this.getUserList();
   },
@@ -200,6 +217,20 @@ export default {
     }
   },
   methods: {
+    //获取所有的商品类型
+    async getAllGoodsType(){
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getAllGoodsType")
+      console.log(result.data)
+      for (let i=0;i<result.data.length;i++){
+        const option = {value:'',disabled:''}
+        option.value =  result.data[i].name
+        if(result.data[i].state=='启用')
+          option.disabled = false
+        else
+          option.disabled = true
+        this.options.push(option)
+      }
+    },
     // 获取总数
     async getPage() {
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getPage?table=goods")
@@ -328,18 +359,6 @@ export default {
 </script>
 
 <style>
-.el-breadcrumb {
-  margin-bottom: 5px;
-}
-
-.el-row {
-  margin-bottom: 18px;
-}
-
-.el-pagination {
-  margin-top: 15px;
-}
-
 .avatar-uploader {
   text-align: left;
 }
@@ -371,4 +390,5 @@ export default {
   height: 178px;
   display: block;
 }
+
 </style>

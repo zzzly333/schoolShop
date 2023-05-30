@@ -10,4 +10,5 @@ public interface goodsMapper {
     void addGoods(goods goods);
     void delGoods(goods goods);
     void updateGoods(goods goods);
+    List<goods> getAllGoods();
 }

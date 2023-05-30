@@ -1,6 +1,8 @@
 package com.cqut.controller;
 
+import com.cqut.domain.goods;
 import com.cqut.domain.goodsType;
+import com.cqut.service.goodsService;
 import com.cqut.service.goodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class goodsTypeController {
     @Autowired
     private goodsTypeService goodsTypeService;
+    private goodsService goodsService;
 
     @ResponseBody
     @RequestMapping(value = "/getGoodsType")
@@ -66,5 +69,14 @@ public class goodsTypeController {
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public void updateGoodsType(goodsType goodsType) throws Exception {
         goodsTypeService.updateGoodsType(goodsType);
+//        List<goods> goods = goodsService.getAllGoods();
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getAllGoodsType")
+    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    public List<goodsType> getAllGoodsType( ) throws Exception {
+        return goodsTypeService.getAllGoodsType();
     }
 }

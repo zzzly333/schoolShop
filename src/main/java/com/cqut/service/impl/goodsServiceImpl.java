@@ -36,4 +36,9 @@ public class goodsServiceImpl implements goodsService {
     public void updateGoods(goods goods) throws Exception {
         goodsMapper.updateGoods(goods);
     }
+
+    @Override
+    public List<goods> getAllGoods() throws Exception {
+        return goodsMapper.getAllGoods();
+    }
 }

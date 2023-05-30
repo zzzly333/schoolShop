@@ -12,6 +12,6 @@ public interface goodsService {
     void addGoods(goods goods) throws Exception;
     void delGoods(goods goods) throws Exception;
     void updateGoods(goods goods) throws Exception;
-
+    List<goods> getAllGoods() throws Exception;
 
 }

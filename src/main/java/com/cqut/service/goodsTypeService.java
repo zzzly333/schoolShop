@@ -13,4 +13,5 @@ public interface goodsTypeService {
     void delGoodsType(goodsType goodsType) throws Exception;
     void updateGoodsType(goodsType goodsType) throws Exception;
     int getPage(String table);
+    List<goodsType> getAllGoodsType()throws Exception;
 }

@@ -11,4 +11,5 @@ public interface goodsTypeMapper {
     void delGoodsType(goodsType goodsType);
     void updateGoodsType(goodsType goodsType);
     int getPage(String table);
+    List<goodsType> getALLGoodsType();
 }

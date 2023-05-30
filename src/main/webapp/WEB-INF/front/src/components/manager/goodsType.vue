@@ -55,7 +55,13 @@
                         <el-input v-model="addForm.name"></el-input>
                     </el-form-item>
                   <el-form-item label="商品状态" prop="goodsState">
-                        <el-input v-model="addForm.state"></el-input>
+                        <el-select v-model="addForm.state" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                 </el-form>
             </span>
@@ -77,7 +83,13 @@
                         <el-input v-model="editForm.name"></el-input>
                     </el-form-item>
                   <el-form-item label="商品状态" prop="goodsState">
-                        <el-input v-model="editForm.state"></el-input>
+                        <el-select v-model="editForm.state" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                 </el-form>
             </span>
@@ -116,7 +128,9 @@ export default {
       editForm: {},
       // 查找
       search:'',
-      filterList:[]
+      filterList:[],
+      //启用与禁止的多选框
+      options:[{value:'启用'},{value: '禁止'}]
     }
   },
   created() {
@@ -154,7 +168,7 @@ export default {
     // 获取物品列表
     async getUserList() {
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getGoodsType?pagenum="+this.queryInfo.pagenum+"&pagesize="+this.queryInfo.pagesize);
-      console.log('getUserList:');
+      console.log('getGoodsTypeList:');
       console.log(result)
       this.userlist = result.data
     },
@@ -251,23 +265,8 @@ export default {
 </script>
 
 <style>
-.el-breadcrumb {
-  margin-bottom: 5px;
-}
 
-.el-row {
-  margin-bottom: 18px;
-}
-
-.el-pagination {
-  margin-top: 15px;
-}
-
-.avatar-uploader {
-  text-align: left;
-}
-
-.avatar-uploader .el-upload {
+.avatar-uploader  {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
@@ -276,23 +275,5 @@ export default {
 
 }
 
-.avatar-uploader .el-upload:hover {
-  border-color: #409EFF;
-}
-
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px !important;
-  text-align: center;
-}
-
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
 </style>
 
