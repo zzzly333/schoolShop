@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cqut.mapper.HomeMapper">
+    <select id="getCategory" resultType= "String" >
+        select distinct name from goodstype
+    </select>
+    <select id="getAllGoods" resultType="goods">
+        select * from goods;
+    </select>
+    <select id="getCategoryGoods" resultType="goods" parameterType="goods">
+        select * from goods where goodsType = #{goodsType};
+    </select>
+    <insert id="addToShopCart" parameterType="ShopCart">
+        insert into shopcart values (#{username},#{goodsno},#{num});
+    </insert>
+    <select id="checkShopCart" resultType="ShopCart" parameterType="ShopCart">
+        select * from shopcart where username = #{username} and goodsno = #{goodsno}
+    </select>
+    <update id="updateShopCart" parameterType="ShopCart">
+        update shopcart set num = #{num} where username = #{username} and goodsno = #{goodsno}
+    </update>
+    <select id="getShopCartNum" parameterType="ShopCart" resultType="int">
+        select num from shopcart where username = #{username} and goodsno = #{goodsno}
+    </select>
+</mapper>

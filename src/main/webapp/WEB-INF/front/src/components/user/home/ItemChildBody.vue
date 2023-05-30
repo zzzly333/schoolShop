@@ -2,7 +2,7 @@
 <div class="item-child-body">
   <div class="item grid-item" @click="detail(index)"
        v-for="(goods,index) in this.$store.state.goods" :key="index"
-        v-if="goods.state == '启用'">
+        v-if="goods.state == '启用' && goods.goodsNum > 0">
     <div class="img">
       <img :src="goods.img">
     </div>

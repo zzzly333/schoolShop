@@ -9,15 +9,19 @@
         </div>
         <div class="info">
           <span class="title">
-            <h3>{{this.$store.state.goods[this.$store.state.indexGoods].goodsName}}</h3>
+            <h3>{{indexItem.goodsName}}</h3>
           </span>
           <span class="text" >
             <h4>描述：</h4>
-            <p>{{this.$store.state.goods[this.$store.state.indexGoods].goodsInfo}}</p>
+            <p>{{indexItem.goodsInfo}}</p>
           </span>
           <span class="price">
-            <h4 style="margin: 0">价格：</h4>
-            <p >￥{{this.$store.state.goods[this.$store.state.indexGoods].goodsPrice}}</p>
+            <h5 style="margin: 0">价格：</h5>
+            <h1 style="text-align: center;color: #ea4716">￥{{indexItem.goodsPrice}}</h1>
+          </span>
+          <span class="num" style="margin-top: 50px">
+            <h4>数量：</h4>
+            <el-input-number style="display: block;margin: auto;" v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
           </span>
           <span class="add-to-cart" style="margin-top: 40px">
             <el-button style="display: block;margin: 30px auto auto;" @click="addCart">加入购物车</el-button>
@@ -31,27 +35,39 @@
 
 <script>
 import store from "../../../store/index";
+import axios from "axios";
 export default {
   name: "ItemDetail",
+  data(){
+    return{
+      num:1,
+      indexItem:this.$store.state.goods[this.$store.state.indexGoods]
+    }
+  },
   methods:{
+    handleChange(value) {
+      console.log(value);
+    },
     goBack(){
       this.$router.go(-1);
     },
-    addCart(){
-      this.$axios({
-        url:"http://localhost:8080/Library_war_exploded/AddCartServlet",
-        method:'post',
-        params:{
-          goodsno:store.state.goods[store.state.indexGoods].goodsno,
-          user:store.state.user.username
-        },
-        headers: {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
-      }).then((result) => {
-        // this.$store.commit("getGoods",result.data)
-      }, function () {
-        console.log('传输失败');
-      })
-      this.$message.success("加入购物车成功")
+    async addCart() {
+      let param = new URLSearchParams()
+      param.append("username", store.state.user.username)
+      param.append("goodsno", this.indexItem.id)
+      param.append("num", this.num)
+      if(this.num > this.indexItem.goodsNum)
+        this.$message.error("购买数量超过库存！")
+      else {
+        await axios({
+          url: "http://localhost:8081/shoolShop_war_exploded/addToShopCart",
+          method: 'post',
+          data: param
+        })
+        this.$message.success("加入购车成功！")
+      }
+
+
     }
   }
 }
@@ -65,7 +81,7 @@ export default {
   height: 60px;font-size: 20px
 }
 .text{
-  height: 300px
+  height: 160px
 }
 .text p{
   text-indent: 50px;

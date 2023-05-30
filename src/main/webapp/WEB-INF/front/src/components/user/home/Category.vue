@@ -2,14 +2,10 @@
   <div class="category">
     <div class="left">
       <h3>分类</h3>
-      <el-tabs :tab-position="tabPosition" :style="leftStyle">
-        <el-tab-pane label="学习教育"></el-tab-pane>
-        <el-tab-pane label="电子数码">电子数码</el-tab-pane>
-        <el-tab-pane label="服饰鞋包">服饰鞋包</el-tab-pane>
-        <el-tab-pane label="美妆护肤">美妆护肤</el-tab-pane>
-        <el-tab-pane label="居家生活">居家生活</el-tab-pane>
-        <el-tab-pane label="宠物">宠物</el-tab-pane>
-
+      <el-tabs :tab-position="tabPosition" :style="leftStyle" >
+        <el-tab-pane v-for="(item,index) in this.$store.state.category" :label="item" :key="index" >
+          <div slot="label" @click="selectGoods(item)">{{item}}</div>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <div class="right">
@@ -20,6 +16,7 @@
 
 <script>
 import LeftButton from "./LeftButton";
+import axios from "axios";
 export default {
   name: "Category",
   components: {LeftButton},
@@ -29,10 +26,23 @@ export default {
       isShow: false,
       leftStyle:{
         position:'fixed',
-        height: "240px"
+        height: 40*this.$store.state.category.length+""+"px",
       },
     };
   },
+  methods:{
+    async selectGoods(item){
+      let param = new URLSearchParams()
+      param.append('goodsType', item)
+      await axios({
+        method: 'post',
+        url: "http://localhost:8081/shoolShop_war_exploded/getCategoryGoods",
+        data: param
+      }).then((result)=>{
+          this.$store.commit('getGoods',result.data)
+      })
+    }
+  }
 }
 </script>
 

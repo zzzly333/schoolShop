@@ -15,6 +15,7 @@ export default new Vuex.Store({
     hideUsr:true,
     hideManager:true,
     hideLogin:false,
+    category:[],
     user:{
       id:'',
       name:'',

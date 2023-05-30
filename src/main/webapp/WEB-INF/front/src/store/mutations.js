@@ -50,6 +50,10 @@ export default {
     state.user.address = user.address
     state.user.state = user.state
   },
+  toHome(state,data){
+    state.category = data[1]
+    state.goods = data[0]
+  },
   getGoods(state,data){
     state.goods = data
   },

@@ -1,21 +1,23 @@
 package com.cqut.controller;
 
 import com.cqut.domain.*;
+import com.cqut.service.HomeService;
 import com.cqut.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class LoginController {
     @Autowired
     private LoginService loginService;
-
+    private HomeService homeService;
     @ResponseBody
     @RequestMapping("/userLogin")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public User userLogin(@RequestParam("username")String username,@RequestParam("password")String password) throws Exception {
-        System.out.println(111);
         User user = null;
         user = loginService.findUser(username, password);
         return user;

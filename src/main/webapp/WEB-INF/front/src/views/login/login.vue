@@ -97,14 +97,13 @@ export default {
           this.$message.error("用户名或密码错误！")
         else {
           this.$store.commit('login',result.data)
-          axios.post("http://localhost:8081/shoolShop_war_exploded/getGoods"
+          axios.post("http://localhost:8081/shoolShop_war_exploded/getHome"
           ).then(result=>{
-            this.$store.commit('getGoods',result.data)
+            this.$store.commit('toHome',result.data)
           })
           this.$message.success("登陆成功！")
           router.push('/schoolshop')
         }
-
       })
     },
     async managerLogin() {
