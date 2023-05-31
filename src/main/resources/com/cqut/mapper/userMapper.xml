@@ -7,6 +7,9 @@
     <select id="getUser" resultType= "User" parameterType="java.util.Map">
         SELECT * FROM user limit #{begin},#{end}
     </select>
+    <select id="getAllUser" resultType= "User" >
+        SELECT * FROM user
+    </select>
     <insert id="addUser" parameterType="User">
         insert into user values (#{id},#{name},#{username},#{password},#{address},#{state})
     </insert>

@@ -39,4 +39,9 @@ public class SManagerServiceImpl implements SManagerService {
     public void updateSManager(saleManager saleManager) throws Exception {
         SManagerMapper.updateSManager(saleManager);
     }
+
+    @Override
+    public List<saleManager> getAllSManager() throws Exception {
+        return SManagerMapper.getAllSManager();
+    }
 }

@@ -59,4 +59,14 @@ public class SManagerController {
     public void updateSManager(saleManager saleManager) throws Exception {
         sManagerService.updateSManager(saleManager);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getAllSManager")
+    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    public List<saleManager> getAllSManager(String pagenum,String pagesize) throws Exception {
+        List<saleManager> saleManager = null;
+        saleManager = sManagerService.getAllSManager();
+        return saleManager;
+//        }
+    }
 }

@@ -7,6 +7,9 @@
     <select id="getGManager" resultType= "goodserManager" parameterType="java.util.Map">
         SELECT * FROM goodsermanager limit #{begin},#{end}
     </select>
+    <select id="getAllGManager" resultType= "goodserManager">
+        SELECT * FROM goodsermanager
+    </select>
     <insert id="addGManager" parameterType="goodserManager">
         insert into goodsermanager values (#{id},#{username},#{password},#{state})
     </insert>

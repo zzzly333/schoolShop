@@ -26,6 +26,11 @@ public class GManagerServiceImpl implements GManagerService {
     }
 
     @Override
+    public List<goodserManager> getAllGManager() throws Exception {
+        return GManagerMapper.getAllGManager();
+    }
+
+    @Override
     public void addGManager(goodserManager goodserManager) throws Exception {
         GManagerMapper.addGManager(goodserManager);
     }

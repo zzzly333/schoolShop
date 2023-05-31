@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface userMapper {
     List<User> getUser(Map map);
+    List<User> getAllUser();
     void addUser(User user);
     void delUser(User user);
     void updateUser(User user);

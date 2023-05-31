@@ -61,4 +61,11 @@ public class GManagerController {
     public void updateSManager(goodserManager goodserManager) throws Exception {
         GManagerService.updateGManager(goodserManager);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getAllGManager")
+    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    public List<goodserManager> getAllGManager() throws Exception {
+        return GManagerService.getAllGManager();
+    }
 }

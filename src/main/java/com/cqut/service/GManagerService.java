@@ -9,6 +9,7 @@ import java.util.Map;
 @Resource
 public interface GManagerService {
     List<goodserManager> getGManager(Map map) throws Exception;
+    List<goodserManager> getAllGManager() throws Exception;
     void addGManager(goodserManager goodserManager) throws Exception;
     void delGManager(goodserManager goodserManager) throws Exception;
     void updateGManager(goodserManager goodserManager) throws Exception;

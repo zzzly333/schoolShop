@@ -73,4 +73,11 @@ public class userController {
         System.out.println(map);
         userService.updateUser2(map);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getAllUser")
+    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    public List<User>  getAllUser(User user) throws Exception {
+        return userService.getAllUser();
+    }
 }

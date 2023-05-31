@@ -58,7 +58,13 @@
                         <el-input v-model="addForm.password"></el-input>
                     </el-form-item>
                     <el-form-item label="状态" prop="state">
-                        <el-input v-model="addForm.state"></el-input>
+                        <el-select v-model="addForm.state" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options2"
+                            :key="item.value"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                 </el-form>
             </span>
@@ -83,7 +89,13 @@
                         <el-input v-model="editForm.password"></el-input>
                     </el-form-item>
                   <el-form-item label="状态" prop="state">
-                        <el-input v-model="editForm.state"></el-input>
+                        <el-select v-model="editForm.state" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options2"
+                            :key="item.value"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                 </el-form>
             </span>
@@ -106,8 +118,8 @@ export default {
         pagesize: 5
       },
       userlist: [
-        { id: '1001', username:'123', password:'456', state:'启用'}
       ],
+      allGM:[],
       total: 0,
       // 控制添加物品对话框显示与隐藏
       addDialogVisible: false,
@@ -123,12 +135,15 @@ export default {
       editForm: {},
       // 查找
       search:'',
-      filterList:[]
+      filterList:[],
+      //启用与禁止的多选框
+      options2:[{value:'启用'},{value: '禁止'}]
     }
   },
   created() {
     this.getPage();
     this.getUserList();
+    this.getAllGM();
   },
   watch: {
     search: {
@@ -141,9 +156,10 @@ export default {
         if(val=='')
           this.getUserList()
         else {
-          this.filterList = this.userlist.filter((item) => {
+          this.filterList = this.allGM.filter((item) => {
             //判断是否在数组中存在
-            return item.id.indexOf(val) !== -1
+            if(item.id.indexOf(val) !== -1 || item.username.indexOf(val) !== -1 || item.state.indexOf(val) !== -1)
+              return item
           })
           this.userlist = this.filterList
         }
@@ -151,6 +167,11 @@ export default {
     }
   },
   methods: {
+    //获取所有的GM管理员
+    async getAllGM(){
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getAllGManager")
+      this.allGM = result.data
+    },
     // 获取总数
     async getPage() {
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getPage?table=goodsermanager")
@@ -161,9 +182,9 @@ export default {
     // 获取物品列表
     async getUserList() {
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getGManager?pagenum="+this.queryInfo.pagenum+"&pagesize="+this.queryInfo.pagesize);
-      console.log('getSManager:');
       console.log(result)
       this.userlist = result.data
+      this.getAllGM();
     },
     // pagesize 改变的事件
     handleSizeChange(newSize) {
@@ -183,7 +204,7 @@ export default {
       console.log('addForm:')
       console.log(this.addForm)
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/addGManager",qs.stringify(this.addForm));
-      console.log('addSManager:')
+      console.log('addGManager:')
       console.log(result)
 
       if (result.status != '200') {
