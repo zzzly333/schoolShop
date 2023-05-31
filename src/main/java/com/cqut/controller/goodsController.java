@@ -60,4 +60,12 @@ public class goodsController {
     public void updateGoods(goods goods) throws Exception {
         goodsService.updateGoods(goods);
     }
+
+//    @ResponseBody
+//    @RequestMapping(value = "/getAllGoods")
+//    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+//    public List<goods> getAllGoods() throws Exception {
+//        List<goods> goods = goodsService.getAllGoods();
+//        return goods;
+//    }
 }

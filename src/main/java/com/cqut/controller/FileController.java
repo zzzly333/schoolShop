@@ -13,19 +13,24 @@ import java.nio.file.Paths;
 
 @Controller
 public class FileController {
-    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+    @ResponseBody
+    @RequestMapping(value = "/uploadImage")
+    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
+    public String uploadImage(@RequestParam("file") MultipartFile file) {
         try {
             String fileName = file.getOriginalFilename();
             byte[] bytes = file.getBytes();
             // 将文件保存到指定路径
+            System.out.println(fileName);
             Path path = Paths.get("D:/aaa/" + fileName);
             Files.write(path, bytes);
             // 返回上传成功的响应
-            return new ResponseEntity<>("{\"url\":\"/" + fileName + "\"}", HttpStatus.OK);
+//            return new ResponseEntity<>("{url:\"/" + fileName + "\"}", HttpStatus.OK);
+            return '/'+fileName;
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+//            return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return "error";
         }
     }
 }

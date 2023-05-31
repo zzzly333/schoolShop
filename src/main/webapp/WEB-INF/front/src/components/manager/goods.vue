@@ -92,7 +92,13 @@
                         <el-input v-model="addForm.goodsInfo"></el-input>
                     </el-form-item>
                   <el-form-item label="商品状态" prop="state">
-                        <el-input v-model="addForm.state"></el-input>
+                        <el-select v-model="addForm.state" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options2"
+                            :key="item.value"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                 </el-form>
             </span>
@@ -116,7 +122,7 @@
                   <el-form-item label="商品类型" prop="goodsName">
                         <el-select v-model="editForm.goodsType" filterable placeholder="请选择">
                           <el-option
-                            v-for="item in options"
+                            v-for="item in options2"
                             :key="item.value"
                             :value="item.value"
                             :disabled="item.disabled">
@@ -142,7 +148,13 @@
                         <el-input v-model="editForm.goodsInfo"></el-input>
                     </el-form-item>
                   <el-form-item label="商品状态" prop="state">
-                        <el-input :value="editForm.state"></el-input>
+                        <el-select v-model="editForm.state" filterable placeholder="请选择">
+                          <el-option
+                            v-for="item in options2"
+                            :key="item.value"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                 </el-form>
             </span>
@@ -165,8 +177,11 @@ export default {
         pagenum: 1,
         pagesize: 5
       },
+      //页面展示的数据
       userlist: [
       ],
+      //所有商品
+      allGoods:[],
       total: 0,
       // 控制添加物品对话框显示与隐藏
       addDialogVisible: false,
@@ -189,10 +204,13 @@ export default {
       filterList:[],
       // 商品类型选择
       options: [],
+      //启用与禁止的多选框
+      options2:[{value:'启用'},{value: '禁止'}]
     }
   },
   created() {
     this.getAllGoodsType();
+    this.getAllGoods();
     this.getPage();
     this.getUserList();
   },
@@ -207,9 +225,11 @@ export default {
         if(val=='')
           this.getUserList()
         else {
-          this.filterList = this.userlist.filter((item) => {
+          this.filterList = this.allGoods.filter((item) => {
             //判断是否在数组中存在
-            return item.id.indexOf(val) !== -1
+            if(item.id.indexOf(val) !== -1 || item.goodsName.indexOf(val) !== -1 || item.goodsType.indexOf(val) !== -1
+              || item.goodsInfo.indexOf(val) !== -1 || item.state.indexOf(val) !== -1)
+              return item
           })
           this.userlist = this.filterList
         }
@@ -217,6 +237,11 @@ export default {
     }
   },
   methods: {
+    //获取所有商品
+    async getAllGoods(){
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getAllGoods")
+      this.allGoods = result.data
+    },
     //获取所有的商品类型
     async getAllGoodsType(){
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getAllGoodsType")
@@ -244,6 +269,7 @@ export default {
       console.log('getGoods:');
       console.log(result)
       this.userlist = result.data
+      this.getAllGoods()
     },
     // pagesize 改变的事件
     handleSizeChange(newSize) {
@@ -273,7 +299,7 @@ export default {
       this.getPage();
       this.getUserList();
       this.$Message.success('添加成功！')
-
+      this.editForm=''
     },
     // 展示修改物品的对话框
     showEditDialog(userinfo) {
@@ -329,9 +355,11 @@ export default {
 
     editDialogClosed() {
       this.$refs.editFormRef.resetFields();
+      this.editForm = "";
     },
     addDialogClosed() {
       this.$refs.addFormRef.resetFields();
+      this.editForm = "";
     },
     editDs() {
       this.editForm = "";
@@ -340,7 +368,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       console.log(res)
-      this.addForm.goodsImage = 'http://localhost:80/images/'+res.url;
+      this.addForm.goodsImage = 'http://localhost:80/images/'+res;
     },
     handleAvatarSuccess2(res, file) {
       console.log(res)

@@ -10,4 +10,5 @@ public interface SManagerMapper {
     void addSManager(saleManager saleManager);
     void delSManager(saleManager saleManager);
     void updateSManager(saleManager saleManager);
+    List<saleManager> getAllSManager();
 }

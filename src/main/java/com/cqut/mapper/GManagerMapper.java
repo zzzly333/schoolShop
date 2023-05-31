@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface GManagerMapper {
     List<goodserManager> getGManager(Map map);
+    List<goodserManager> getAllGManager();
     void addGManager(goodserManager goodserManager);
     void delGManager(goodserManager goodserManager);
     void updateGManager(goodserManager goodserManager);

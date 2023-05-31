@@ -13,4 +13,5 @@ public interface userService {
     void delUser(User user) throws Exception;
     void updateUser(User user) throws Exception;
     void updateUser2(Map map) throws Exception;
+    List<User> getAllUser() throws Exception;
 }

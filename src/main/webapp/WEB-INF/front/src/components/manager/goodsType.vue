@@ -111,9 +111,11 @@ export default {
         pagenum: 1,
         pagesize: 5
       },
+      //当前页面展示数据
       userlist: [
-
       ],
+      //所有的商品种类
+      allGoodsType:[],
       total: 0,
       // 控制添加物品对话框显示与隐藏
       addDialogVisible: false,
@@ -136,6 +138,7 @@ export default {
   created() {
     this.getPage();
     this.getUserList();
+    this.getAllGoodsType();
   },
   watch: {
     search: {
@@ -148,9 +151,10 @@ export default {
         if(val=='')
           this.getUserList()
         else {
-          this.filterList = this.userlist.filter((item) => {
+          this.filterList = this.allGoodsType.filter((item) => {
             //判断是否在数组中存在
-            return item.id.indexOf(val) !== -1
+            if(item.id.indexOf(val) !== -1 || item.name.indexOf(val) !== -1 || item.state.indexOf(val) !== -1)
+              return item
           })
           this.userlist = this.filterList
         }
@@ -158,6 +162,11 @@ export default {
     }
   },
   methods: {
+    //获取所有商品种类
+    async getAllGoodsType(){
+      const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getAllGoodsType")
+      this.allGoodsType = result.data;
+    },
     // 获取总数
     async getPage() {
       const result = await this.$axios.post("http://localhost:8081/schoolShop_war_exploded/getPage?table=goodstype")
@@ -171,6 +180,7 @@ export default {
       console.log('getGoodsTypeList:');
       console.log(result)
       this.userlist = result.data
+      this.getAllGoodsType();
     },
     // pagesize 改变的事件
     handleSizeChange(newSize) {

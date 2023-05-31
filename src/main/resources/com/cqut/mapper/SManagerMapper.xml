@@ -16,4 +16,7 @@
     <update id="updateSManager" parameterType="saleManager">
         update salemanager set username=#{username},password=#{password},state=#{state} where id=#{id}
     </update>
+    <select id="getAllSManager" resultType= "saleManager" >
+        SELECT * FROM salemanager
+    </select>
 </mapper>

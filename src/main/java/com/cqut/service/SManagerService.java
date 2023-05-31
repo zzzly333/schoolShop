@@ -12,5 +12,5 @@ public interface SManagerService {
     void addSManager(saleManager saleManager) throws Exception;
     void delSManager(saleManager saleManager) throws Exception;
     void updateSManager(saleManager saleManager) throws Exception;
-
+    List<saleManager> getAllSManager() throws Exception;
 }
