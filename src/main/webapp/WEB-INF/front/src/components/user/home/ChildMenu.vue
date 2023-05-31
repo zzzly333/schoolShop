@@ -95,7 +95,7 @@ export default {
     //   this.$store.commit("getGoods",sortKeys)
     // },
     getGoods() {
-      axios.post("http://localhost:8081/shoolShop_war_exploded/getAllGoods"
+      axios.post("http://localhost:8081/schoolShop_war_exploded/getAllGoods"
       ).then((result) => {
         this.$store.commit("getGoods", result.data)
       })

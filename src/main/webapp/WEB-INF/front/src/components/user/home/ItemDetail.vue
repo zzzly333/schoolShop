@@ -70,7 +70,7 @@ export default {
         this.$message.error("购买数量超过库存！")
       else {
         await axios({
-          url: "http://localhost:8081/shoolShop_war_exploded/addToShopCart",
+          url: "http://localhost:8081/schoolShop_war_exploded/addToShopCart",
           method: 'post',
           data: param
         })

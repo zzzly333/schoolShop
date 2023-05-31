@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     toHome(){
-      axios.post("http://localhost:8081/shoolShop_war_exploded/getHome"
+      axios.post("http://localhost:8081/schoolShop_war_exploded/getHome"
       ).then((result) => {
         this.$store.commit("toHome",result.data)
       })
@@ -45,7 +45,7 @@ export default {
       let param = new URLSearchParams()
       param.append("username",this.$store.state.user.username)
       axios({
-        url:"http://localhost:8081/shoolShop_war_exploded/getShopCart",
+        url:"http://localhost:8081/schoolShop_war_exploded/getShopCart",
         method:'post',
         data:param
       }).then((result) => {
@@ -57,7 +57,7 @@ export default {
       let param = new URLSearchParams()
       param.append("username",this.$store.state.user.username)
       axios({
-        url:"http://localhost:8081/shoolShop_war_exploded/getAllOrders",
+        url:"http://localhost:8081/schoolShop_war_exploded/getAllOrders",
         method:'post',
         data:param
       }).then((result) => {

@@ -57,7 +57,7 @@ export default {
       let param = new URLSearchParams()
       param.append("username", this.$store.state.user.username)
       await axios({
-        url: "http://localhost:8081/shoolShop_war_exploded/getShopCart",
+        url: "http://localhost:8081/schoolShop_war_exploded/getShopCart",
         method: 'post',
         data: param
       }).then((result) => {
@@ -68,7 +68,7 @@ export default {
       let param = new URLSearchParams()
       param.append("removeNo", this.getArr())
       await axios({
-        url: "http://localhost:8081/shoolShop_war_exploded/removeShopCart",
+        url: "http://localhost:8081/schoolShop_war_exploded/removeShopCart",
         method: 'post',
         data: param
       })
@@ -80,7 +80,7 @@ export default {
       param.append("payGoods", this.getArr())
       param.append("username", this.$store.state.user.username)
       await axios({
-        url: "http://localhost:8081/shoolShop_war_exploded/payShopCart",
+        url: "http://localhost:8081/schoolShop_war_exploded/payShopCart",
         method: 'post',
         data: param
       })

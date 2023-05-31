@@ -90,7 +90,7 @@ export default {
       param.append('password', this.password)
       await axios({
         method: 'post',
-        url: "http://localhost:8081/shoolShop_war_exploded/userLogin",
+        url: "http://localhost:8081/schoolShop_war_exploded/userLogin",
         data: param
       }).then((result)=>{
         if(result.data === "")
@@ -98,7 +98,7 @@ export default {
         else {
           console.log(result.data)
           this.$store.commit('login',result.data)
-          axios.post("http://localhost:8081/shoolShop_war_exploded/getHome"
+          axios.post("http://localhost:8081/schoolShop_war_exploded/getHome"
           ).then(result=>{
             this.$store.commit('toHome',result.data)
           })
@@ -115,7 +115,7 @@ export default {
       let param = new URLSearchParams()
       param.append('username', this.username)
       param.append('password', this.password)
-      let url = 'http://localhost:8081/shoolShop_war_exploded/'
+      let url = 'http://localhost:8081/schoolShop_war_exploded/'
       if (this.radio === 1)
           url += 'manager1Login'
       else if(this.radio === 2)
@@ -173,7 +173,7 @@ export default {
         param.append('username', this.username)
         param.append('password', this.password)
         await axios({
-          url:"http://localhost:8081/shoolShop_war_exploded/regist",
+          url:"http://localhost:8081/schoolShop_war_exploded/regist",
           method:'post',
           data:param
         }).then(result =>{

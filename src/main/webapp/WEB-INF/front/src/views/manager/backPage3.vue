@@ -58,13 +58,13 @@ export default {
     }
   },
   created () {
-    // this.admin = localStorage.getItem("username");
+    this.admin = localStorage.getItem("username3");
   },
   methods: {
     logout () {
-      // localStorage.removeItem("username");
-      // localStorage.removeItem("userid");
-      // this.$router.push('/login');
+      localStorage.removeItem("username3");
+      localStorage.removeItem("userid");
+      this.$router.push('/login');
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);

@@ -55,17 +55,17 @@ export default {
   name:"bakePage1",
   data () {
     return {
-      admin:'123'
+      admin:''
     }
   },
   created () {
-    // this.admin = localStorage.getItem("username");
+    this.admin = localStorage.getItem("username1");
   },
   methods: {
     logout () {
-      // localStorage.removeItem("username");
+      localStorage.removeItem("username1");
       // localStorage.removeItem("userid");
-      // this.$router.push('/login');
+      this.$router.push('/login');
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);

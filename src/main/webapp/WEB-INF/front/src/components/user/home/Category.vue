@@ -37,7 +37,7 @@ export default {
       param.append('goodsType', item)
       await axios({
         method: 'post',
-        url: "http://localhost:8081/shoolShop_war_exploded/getCategoryGoods",
+        url: "http://localhost:8081/schoolShop_war_exploded/getCategoryGoods",
         data: param
       }).then((result)=>{
           this.$store.commit('getGoods',result.data)
