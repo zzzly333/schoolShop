@@ -28,7 +28,7 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public void addToShopCart(String username, String goodsno, int num) throws Exception {
+    public void addToShopCart(String username,String goodsno,String goodsName,String goodsImage,float goodsPrice,int num,String state) throws Exception {
         ShopCart shopCart = null;
         shopCart = homeMapper.checkShopCart(username,goodsno);
         int num1 = num;
@@ -37,7 +37,7 @@ public class HomeServiceImpl implements HomeService {
             homeMapper.updateShopCart(username, goodsno, num1);
         }
         else
-            homeMapper.addToShopCart(username, goodsno, num1);
+            homeMapper.addToShopCart(username, goodsno,goodsName,goodsImage,goodsPrice, num1,state);
     }
 
 }

@@ -55,29 +55,10 @@ public class HomeController {
     @RequestMapping("/addToShopCart")
     @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
     public void addToShopCart(@RequestParam("username")String username,@RequestParam("goodsno")String goodsno,
-                              @RequestParam("num")int num) throws Exception {
-        homeService.addToShopCart(username, goodsno, num);
+                              @RequestParam("goodsName")String goodsName,
+                              @RequestParam("goodsImage")String goodsImage,@RequestParam("goodsPrice")float goodsPrice,
+                              @RequestParam("num")int num,@RequestParam("state")String state) throws Exception {
+        homeService.addToShopCart(username, goodsno,goodsName,goodsImage,goodsPrice, num,state);
     }
-//    @ResponseBody
-//    @RequestMapping("/manager3Login")
-//    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-//    public systemManager manager3Login(@RequestParam("username")String username, @RequestParam("password")String password) throws Exception {
-//        systemManager manager = null;
-//        manager = loginService.findManager3(username, password);
-//        return manager;
-//    }
-//    @ResponseBody
-//    @RequestMapping("/regist")
-//    @CrossOrigin(originPatterns = "*",allowCredentials="true",allowedHeaders = "*",methods = {RequestMethod.POST})
-//    public User regist(@RequestParam("username")String username, @RequestParam("password")String password) throws Exception {
-//        User user = null;
-//        user = loginService.checkRegisted(username, password);
-//        int id = (Integer.parseInt(loginService.getMaxUserId()))+1;
-//        if(user == null) {
-//            loginService.insertUser(id + "", username, password);
-////            user = new User(id+"","",username,password,"","启用");
-//        }
-//        return user;
-//    }
 
 }

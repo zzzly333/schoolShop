@@ -5,7 +5,7 @@
         <el-card shadow="hover"  >
           <div class="item-message" >
             <input class="single" type="checkbox" @click="check(index,item)" :checked="$store.state.checked[index]">
-            <span class="img" ><img :src="item.img"></span>
+            <span class="img" ><img :src="item.goodsImage"></span>
             <span class="goods-name" >{{item.goodsName}}</span>
             <span class="goods-price" >￥{{item.goodsPrice}}</span>
           </div>

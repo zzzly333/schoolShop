@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cqut.mapper.ShopCartMapper">
+    <select id="getShopCart" resultType= "ShopCart" parameterType="ShopCart">
+        select * from shopcart  where username = #{username}
+    </select>
+    <delete id="removeShopCart" parameterType="String">
+        delete from shopcart where goodsno = #{goodsno}
+    </delete>
+    <insert id="insertOrder" parameterType="Order">
+        insert into orders values (#{username},#{goodsno},#{goodsName},#{goodsImage},#{sumPrice},#{num},#{date})
+    </insert>
+    <select id="getCheckedItem" parameterType="String" resultType="ShopCart">
+        select * from shopcart where username = #{username} and goodsno = #{goodsno}
+    </select>
+    <update id="changeGoodsNum" parameterType="goods">
+        update goods set goodsNum = #{goodsNum} where id = #{id}
+    </update>
+    <select id="getGoodsNum" parameterType="goods" resultType="int">
+        select goodsNum from goods where  id = #{id}
+    </select>
+
+</mapper>

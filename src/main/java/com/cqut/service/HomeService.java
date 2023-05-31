@@ -10,5 +10,5 @@ public interface HomeService {
     public List<String> getCategory() throws Exception;
     public List<goods> getAllGoods() throws Exception;
     public List<goods> getCategoryGoods(String type) throws Exception;
-    public void addToShopCart(String username,String goodsno,int num) throws Exception;
+    public void addToShopCart(String username,String goodsno,String goodsName,String goodsImage,float goodsPrice,int num,String state) throws Exception;
 }

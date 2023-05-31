@@ -13,13 +13,9 @@ public class ordersServiceImpl implements ordersService {
     @Autowired
     public ordersMapper ordersMapper;
     @Override
-    public List<Order> getAllOrders() throws Exception {
-        List<Order> orders = ordersMapper.getAllOrders();
-        if(orders==null)
-            throw new Exception("订单不存在");
-        else
-        {
-            return orders;
-        }
+    public List<Order> getAllOrders(String username) throws Exception {
+        List<Order> orders = null;
+        orders = ordersMapper.getAllOrders(username);
+        return orders;
     }
 }

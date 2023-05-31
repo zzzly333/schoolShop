@@ -61,11 +61,14 @@ export default {
     state.indexGoods = index
   },
   getCart(state,cart){
-    state.shopcart = cart
+    state.shopCart = cart
   },
   managerLogin(state){
     state.hideUsr = true
     state.hideManager = false
     state.hideLogin = true
+  },
+  getOrders(state,data){
+    state.orders = data
   }
 }

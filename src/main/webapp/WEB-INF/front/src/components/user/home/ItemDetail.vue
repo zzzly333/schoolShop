@@ -5,7 +5,7 @@
 
       <div class="item">
         <div class="imgs">
-
+        <img :src="indexItem.goodsImage">
         </div>
         <div class="info">
           <span class="title">
@@ -41,7 +41,13 @@ export default {
   data(){
     return{
       num:1,
-      indexItem:this.$store.state.goods[this.$store.state.indexGoods]
+      indexItem:this.$store.state.goods[this.$store.state.indexGoods],
+      // addItem:{
+      //   username:this.$store.state.user.username,
+      //   goodsno:this.indexItem.id,
+      //   goodsName: this.indexItem.goodsName,
+      //   goodsPrice:this.indexItem.goodsPrice,
+      // }
     }
   },
   methods:{
@@ -55,7 +61,11 @@ export default {
       let param = new URLSearchParams()
       param.append("username", store.state.user.username)
       param.append("goodsno", this.indexItem.id)
+      param.append("goodsName", this.indexItem.goodsName)
+      param.append("goodsImage",this.indexItem.goodsImage)
+      param.append("goodsPrice", this.indexItem.goodsPrice)
       param.append("num", this.num)
+      param.append("state", this.indexItem.state)
       if(this.num > this.indexItem.goodsNum)
         this.$message.error("购买数量超过库存！")
       else {
@@ -74,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+img{
+  width: 716.8px;
+  height: 510px;
+}
 .title{
   height: 50px;font-size: 20px
 }

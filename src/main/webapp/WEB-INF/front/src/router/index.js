@@ -11,8 +11,8 @@ import backPage1 from "../views/manager/backPage1";
 import Home from "../views/user/Home";
 import ShopCart from "../views/user/ShopCart";
 import Profile from "../views/user/Profile";
-import MyOrders from "../views/user/MyOrders";
 import ItemDetail from "../components/user/home/ItemDetail";
+import Orders from "../views/user/Orders";
 Vue.use(VueRouter)
 
 
@@ -50,7 +50,7 @@ const routes = [
       {
         path: 'orders',
         name: 'orders',
-        component: MyOrders,
+        component: Orders,
         meta: { isAuth: true, title: "订单记录" }
       },
       {
