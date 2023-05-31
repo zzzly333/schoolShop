@@ -1,16 +1,15 @@
 <template>
   <div class="menu-div">
     <div id="menuDiv">
-      <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="inputvalue" :style="search"></el-input>
-      <el-menu  router :default-active="default_active" class="el-menu-demo" mode="horizontal" >
-        <el-menu-item index="/schoolshop/home" @click="toHome" ><div class="top-item"> 首页</div></el-menu-item>
-        <el-menu-item index="/schoolshop/orders" @click="getOrders"><div class="top-item">订单记录</div></el-menu-item>
-        <el-menu-item index="/schoolshop/shopcart" @click="getCart"><div class="top-item">购物车</div></el-menu-item>
-        <el-menu-item index="/schoolshop/profile" id="profile"><div class="top-item">会员中心</div></el-menu-item>
+      <el-menu  router :default-active="index_active" class="el-menu-demo" mode="horizontal" >
+        <el-menu-item index="/schoolshop/home" @click="toHome()" ><div class="top-item"> 首页</div></el-menu-item>
+        <el-menu-item index="/schoolshop/orders" @click="getOrders()"><div class="top-item">订单记录</div></el-menu-item>
+        <el-menu-item index="/schoolshop/shopcart" @click="getCart()"><div class="top-item">购物车</div></el-menu-item>
+        <el-menu-item index="/schoolshop/profile" id="profile" ><div class="top-item">会员中心</div></el-menu-item>
       </el-menu>
     </div>
     <div>
-      <router-view></router-view>
+      <router-view ref="child"></router-view>
     </div>
   </div>
 </template>
@@ -24,16 +23,14 @@ export default {
   name: "TopMenu",
   data(){
     return{
-      default_active:"/schoolshop/home",
+      index_active:"/schoolshop/home",
       isShow: false,
-      search:{
+      searchStyle:{
         width:"500px",
         position: 'absolute',
         zIndex: "10",
         margin:'10px 0px 10px -500px',
       },
-      tag:'li',
-      inputvalue:'',
     }
   },
   methods:{
@@ -44,6 +41,7 @@ export default {
       })
     },
     getCart(){
+
       let param = new URLSearchParams()
       param.append("username",this.$store.state.user.username)
       axios({

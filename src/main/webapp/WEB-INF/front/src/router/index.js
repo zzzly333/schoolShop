@@ -17,12 +17,12 @@ Vue.use(VueRouter)
 
 
 const routes = [
-  {
-    path: '/',
-    name: 'login',
-    component: () => import("../views/login/login"),
-    meta: { isAuth: true, title: "登录" }
-  },
+  // {
+  //   path: '/',
+  //   name: 'login',
+  //   component: () => import("../views/login/login"),
+  //   meta: { isAuth: true, title: "登录" }
+  // },
   {
     path: '/login',
     name: 'login',
@@ -45,7 +45,7 @@ const routes = [
       path: 'home',
       name: 'home',
       component: Home,
-      meta: { isAuth: true, title: "登录" }
+      meta: { isAuth: true, title: "首页" }
     },
       {
         path: 'orders',

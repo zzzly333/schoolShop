@@ -7,13 +7,13 @@
             <el-card shadow="hover">
               <div class="item-message">
                     <span class="click">
-                      <input class="click-box" type="checkbox" @click="check(index,item)":checked="$store.state.checked[index]">
+                      <input class="click-box" type="checkbox" @click="check(index,item)" :checked="$store.state.checked[index]">
                     </span>
                     <span class="shop-cart-item-info">
                           <span class="img"><img :src="item.goodsImage" alt="商品"></span>
                           <span class="goods-name"><p>{{ item.goodsName }}</p></span>
                           <span class="goods-price"><p>￥{{ item.goodsPrice }}</p> </span>
-                          <span class="goods-num"><p>数量:&nbsp;&nbsp;{{ item.num }}</p></span>
+                          <span class="goods-num"><p>数量&nbsp;:&nbsp;&nbsp;{{ item.num }}</p></span>
                     </span>
               </div>
             </el-card>
@@ -138,7 +138,9 @@ img {
   height: 100px;
 }
 
-
+p{
+  text-align: left;
+}
 span {
   display: inline-block;
   /*float: top;*/
@@ -177,12 +179,13 @@ input[type=checkbox], span {
   height: 70px;
   display: flex;
 }
-.click{
+.item-message .click{
   flex: 1;
 }
 .shop-cart-item-info{
   flex: 19;
   display: flex;
+  padding-left: 20px;
 }
 .shop-cart-item-info .img {
   border: 1px solid #ead5d5;
@@ -190,13 +193,15 @@ input[type=checkbox], span {
   width: 80px;
 }
 .shop-cart-item-info .goods-name{
-  flex: 10;
+  flex: 8;
+  margin: 0;
+  padding-left: 30px;
 }
 .shop-cart-item-info .goods-price{
   flex: 4;
 }
 .shop-cart-item-info .goods-num{
-  flex: 1;
+  flex: 2;
 }
 .fixedPay {
   height: 100px;

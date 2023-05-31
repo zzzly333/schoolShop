@@ -1,15 +1,22 @@
 <template>
-  <div id="shop-cart" >
+  <div id="shop-cart"  >
     <div id="shop-cart-body">
       <div class="items">
         <div class="shop-cart-item" v-for="(item,index) in $store.state.orders" :key="item.goodsno">
-          <el-col >
-            <el-card shadow="hover"  >
-              <div class="item-message" >
-                <span class="img" ><img :src="item.goodsImage"></span>
-                <span style="width: 450px;height: 60px;margin-left: 30px;text-align: left">{{item.goodsName}}</span>
-                <span style="height: 50px;width: 100px;font-size: 20px;text-align: left">￥{{item.sumPrice}}</span>
-                <span style="width: 100px">数量:&nbsp;&nbsp;{{item.num}}</span>
+          <el-col>
+            <el-card shadow="hover">
+              <div class="order-info">
+                <span class="img"><img :src="item.goodsImage" alt="商品"></span>
+                <span class="text-info">
+                  <div class="up-info">
+                      <p>{{item.date}}</p>
+                  </div>
+                  <div class="down-info">
+                     <span class="order-name"><p>{{ item.goodsName }}</p></span>
+                      <span class="order-price"><p>￥{{ item.sumPrice }}</p> </span>
+                      <span class="order-num"><p>数量&nbsp;:&nbsp;&nbsp;{{ item.num }}</p></span>
+                  </div>
+                </span>
               </div>
             </el-card>
           </el-col>
@@ -23,70 +30,70 @@
 <script>
 import axios from "axios";
 import store from "../../store";
+
 export default {
   name: "Orders",
   data() {
     return {
-      top:'',
+      top: '',
       isDisplay: false,
-      arr:[]
+      arr: []
     }
   },
-  computed:{
+  computed: {
     cards() {
       return document.getElementsByClassName('el-card')
     },
   },
-  methods:{
-    getArr(){
+  methods: {
+    getArr() {
       let str = []
-      for( let i in this.arr)
-      {
+      for (let i in this.arr) {
         str.push(this.arr[i])
       }
       return str
     },
-    async getShopCart(){
+    async getShopCart() {
       let param = new URLSearchParams()
-      param.append("username",this.$store.state.user.username)
+      param.append("username", this.$store.state.user.username)
       await axios({
-        url:"http://localhost:8081/shoolShop_war_exploded/getShopCart",
-        method:'post',
-        data:param
+        url: "http://localhost:8081/shoolShop_war_exploded/getShopCart",
+        method: 'post',
+        data: param
       }).then((result) => {
-        store.commit("getCart",result.data)
+        store.commit("getCart", result.data)
       })
     },
-    async delete(){
+    async delete() {
       let param = new URLSearchParams()
-      param.append("removeNo",this.getArr())
+      param.append("removeNo", this.getArr())
       await axios({
-        url:"http://localhost:8081/shoolShop_war_exploded/removeShopCart",
-        method:'post',
-        data:param
+        url: "http://localhost:8081/shoolShop_war_exploded/removeShopCart",
+        method: 'post',
+        data: param
       })
       this.$message.success("商品移出购物车成功！")
       await this.getShopCart()
     },
-    async pay(){
+    async pay() {
       let param = new URLSearchParams()
-      param.append("payGoods",this.getArr())
-      param.append("username",this.$store.state.user.username)
+      param.append("payGoods", this.getArr())
+      param.append("username", this.$store.state.user.username)
       await axios({
-        url:"http://localhost:8081/shoolShop_war_exploded/payShopCart",
-        method:'post',
-        data:param
+        url: "http://localhost:8081/shoolShop_war_exploded/payShopCart",
+        method: 'post',
+        data: param
       })
       this.$message.success("商品结算成功！")
       await this.getShopCart()
     },
-    check(index,item){
+    check(index, item) {
       this.arr = []
-      this.$store.commit("changeCheck",index)
+      this.$store.commit("changeCheck", index)
       this.$refs.child.num = 0
       this.$refs.child.price = 0
-      for(let i = 0 ; i < this.$store.state.shopCart.length ; i++){
-        if(this.$store.state.checked[i]){
+      for (let i = 0; i < this.$store.state.shopCart.length; i++) {
+        if (this.$store.state.checked[i]) {
           this.$refs.child.num++
           this.$refs.child.price += parseFloat(this.$store.state.shopCart[i].goodsPrice)
           this.arr.push(this.$store.state.shopCart[i].goodsno)
@@ -100,9 +107,9 @@ export default {
       this.top = document.documentElement.scrollTop
     })
   },
-  watch:{
-    top(newValue,oldValue){
-      if(newValue >= 1200)
+  watch: {
+    top(newValue, oldValue) {
+      if (newValue >= 1200)
         this.isDisplay = true
       else
         this.isDisplay = false
@@ -116,67 +123,141 @@ export default {
 </script>
 
 <style scoped>
+.order-name {
+  width: 450px;
+  height: 60px;
+  margin-left: 30px;
+  text-align: left
+}
 
-.img{
-  border: 1px solid #ead5d5;
-  height: 100px;
+.order-price {
+  height: 50px;
+  width: 100px;
+  font-size: 20px;
+  text-align: left
+}
+
+img {
   width: 80px;
-}
-span{
-  display:inline-block;
+  height: 100px;
 }
 
-.color{
-  border:1px #fc9375 solid;
+p {
+  text-align: left;
 }
-.shop-cart-item{
+
+span {
+  display: inline-block;
+  /*float: top;*/
+}
+
+.color {
+  border: 1px #fc9375 solid;
+}
+
+.shop-cart-item {
   width: 100%;
   height: 150px;
   margin-bottom: 30px;
 }
-.el-card{
+
+.el-card {
   display: flex;
   height: 150px;
   flex-direction: column;
 }
-input[type=checkbox],span{
+
+input[type=checkbox], span {
   height: 20px;
   width: 20px;
 }
-.saler{
+
+.saler {
   flex: 1;
   border-bottom: 0.5px #d4d2d2 solid;
   height: 20px;
   padding: 0 5px;
 }
-.item-message{
-  flex: 4;
+
+.order-info {
   height: 70px;
+  display: flex;
 }
-.fixedPay{
+.order-info .img{
+  flex: 1;
+  height: inherit;
+}
+.order-info .text-info{
+  flex: 9;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+}
+.order-info .text-info .down-info{
+  flex: 1;
+  display: flex;
+}
+.order-info .text-info .down-info .order-name{
+  flex: 5;
+}
+.order-info .text-info .down-info .order-price{
+  flex: 2;
+}
+.order-info .text-info .down-info .order-num{
+  flex: 2;
+}
+.order-info .text-info .up-info{
+  flex: 1;
+  padding-left: 30px;
+}
+.shop-cart-item-info .img {
+  border: 1px solid #ead5d5;
+  height: 100px;
+  width: 80px;
+}
+
+.order-info .order-name {
+  flex: 8;
+  margin: 0;
+  padding-left: 30px;
+}
+
+.order-info .order-price {
+  flex: 4;
+}
+
+.order-info .order-num {
+  flex: 2;
+}
+
+.fixedPay {
   height: 100px;
   width: 70.9%;
   position: fixed;
   margin-top: 525px;
   box-shadow: 0 4px 8px 0 rgb(62, 62, 63), 0 6px 20px 0 rgb(62, 62, 63);
 }
-#pay,.fixedPay{
+
+#pay, .fixedPay {
   padding: 20px;
   background-color: #f5f2f2;
   border-radius: 10px;
   height: 50px;
 }
-.items{
+
+.items {
   padding: 50px;
   flex: 20;
 }
-#shop-cart{
+
+#shop-cart {
   padding: 100px 200px;
   margin-bottom: 20px;
   height: 2000px;
   position: relative;
 }
-#shop-cart-body{
+
+#shop-cart-body {
   height: 100%;
   border-radius: 10px;
   position: relative;

@@ -1,5 +1,5 @@
 <template>
-<div class="profile">
+<div class="profile"  >
 <!--  <div class="menu">-->
     <div class="head-img" >
       <template>

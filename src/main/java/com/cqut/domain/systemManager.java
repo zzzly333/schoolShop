@@ -4,7 +4,15 @@ public class systemManager {
     private String id;
     private String username;
     private String password;
-//    private String state;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public systemManager(String id, String username, String password) {
         this.id = id;
@@ -51,7 +59,7 @@ public class systemManager {
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-//                ", state=" + state +
+                ", state=" + state +
                 '}';
     }
 }

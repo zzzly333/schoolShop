@@ -3,7 +3,7 @@
     <div class="left">
       <h3>分类</h3>
       <el-tabs :tab-position="tabPosition" :style="leftStyle" >
-        <el-tab-pane v-for="(item,index) in this.$store.state.category" :label="item" :key="index" >
+        <el-tab-pane v-for="(item,index) in this.$store.state.category" :label="item" :key="index">
           <div slot="label" @click="selectGoods(item)">{{item}}</div>
         </el-tab-pane>
       </el-tabs>
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       tabPosition: 'left',
-      isShow: false,
+      // isShow: false,
       leftStyle:{
         position:'fixed',
         height: 40*this.$store.state.category.length+""+"px",
@@ -32,6 +32,7 @@ export default {
   },
   methods:{
     async selectGoods(item){
+      console.log(item)
       let param = new URLSearchParams()
       param.append('goodsType', item)
       await axios({

@@ -96,13 +96,18 @@ export default {
         if(result.data === "")
           this.$message.error("用户名或密码错误！")
         else {
+          console.log(result.data)
           this.$store.commit('login',result.data)
           axios.post("http://localhost:8081/shoolShop_war_exploded/getHome"
           ).then(result=>{
             this.$store.commit('toHome',result.data)
           })
-          this.$message.success("登陆成功！")
-          router.push('/schoolshop')
+          if(this.$store.state.user.state == '启用'){
+            this.$message.success("登陆成功！")
+            router.push('/schoolshop')
+          }
+          else
+            this.$message.error("该账号已被禁用！")
         }
       })
     },
@@ -126,13 +131,27 @@ export default {
         if (result.data === "")
           this.$message.error("用户名或密码错误！")
         else {
-          this.$message.success("登陆成功！")
-          if(this.radio === 1)
+          this.$store.commit('getManager',result.data)
+
+          if(this.$store.state.manager.state === '启用')
+          {
+            this.$message.success("登陆成功！")
+            if(this.radio === 1){
+              localStorage.setItem('username1',this.$store.state.manager.username)
               router.push('/backPage1')
-          else if(this.radio === 2)
+            }
+            else if(this.radio === 2){
+              localStorage.setItem('username2',this.$store.state.manager.username)
               router.push('/backPage2')
-          else if(this.radio === 3)
+            }
+            else if(this.radio === 3){
+              localStorage.setItem('username3',this.$store.state.manager.username)
               router.push('/backPage3')
+            }
+
+          }
+          else
+            this.$message.error("该账号已被禁用！")
         }
       })
     },

@@ -1,6 +1,5 @@
 export default {
   changeBoolean(state){
-
     state.isSelectAll = !state.isSelectAll
     if(state.isSelectAll){
       for(let i in state.checked){
@@ -22,15 +21,6 @@ export default {
     if(flag)
       state.isSelectAll = true
   },
-  deleteItems(state) {
-    for(let i = 0 ; i < state.checked.length ; i++){
-      if(state.checked[i]){
-        state.checked.splice(i,1)
-        state.items.splice(i,1)
-      }
-
-    }
-  },
   logOut(state){
     state.isLogin = false
     state.hideUsr = true
@@ -38,17 +28,15 @@ export default {
     state.hideLogin = false
     state.user = ''
   },
-  managerLogOut(state){
-    state.hideLogin = false
-    state.hideManager = true
-  },
   login(state,user){
+    console.log(user)
     state.user.id = user.id
     state.user.name = user.name
     state.user.username = user.username
     state.user.password = user.password
     state.user.address = user.address
     state.user.state = user.state
+
   },
   toHome(state,data){
     state.category = data[1]
@@ -62,13 +50,20 @@ export default {
   },
   getCart(state,cart){
     state.shopCart = cart
+    state.checked = []
+    for(let i=0; i<state.shopCart.length; i++){
+      state.checked.push(false)
+    }
   },
-  managerLogin(state){
-    state.hideUsr = true
-    state.hideManager = false
-    state.hideLogin = true
-  },
+  // clearCheckBox(state){
+  //   for(let i=0 ; i<state.checked.length ; i++){
+  //     state.checked[i] = false
+  //   }
+  // },
   getOrders(state,data){
     state.orders = data
+  },
+  getManager(state,data){
+    state.manager = data
   }
 }

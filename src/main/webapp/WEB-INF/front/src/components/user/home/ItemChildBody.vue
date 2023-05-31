@@ -1,5 +1,5 @@
 <template>
-<div class="item-child-body">
+<div class="item-child-body" ref="goods">
   <div class="item grid-item" @click="detail(index)"
        v-for="(goods,index) in this.$store.state.goods" :key="index"
         v-if="goods.state === '启用' && goods.goodsNum > 0">
@@ -28,7 +28,37 @@ export default {
       return this.$store.state.items.length
     },
   },
+  watch: {
+    search: {
+      //首次绑定是否执行handler
+      immediate: true,
+      //一般情况下，数据发生变化handler才会执行
+      handler (val) {
+        if(val=='')
+          this.getGoods()
+        else {
+          // console.log(this.goods)
+          this.filterList = this.$store.state.goods.filter((item) => {
+            //判断是否在数组中存在
+            return item.goodsName.indexOf(val) !== -1
+          })
+          this.goods = this.filterList
+          this.$store.commit("getGoods",this.goods)
+        }
+      }
+    }
+  },
   methods:{
+    searchGoods(){
+      if(this.index_page !== 'home'){
+        this.filterList = this.goods.filter((item) => {
+          //判断是否在数组中存在
+          return item.goodsName.indexOf(this.search) !== -1
+        })
+        this.goods = this.filterList
+        // this.$store.commit("getGoods",this.goods)
+      }
+    },
     show(i){
       return i <= this.$store.state.items.length
     },

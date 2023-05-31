@@ -5,13 +5,13 @@
 
 <mapper namespace="com.cqut.mapper.HomeMapper">
     <select id="getCategory" resultType= "String" >
-        select distinct name from goodstype
+        select distinct name from goodstype where state = '启用'
     </select>
     <select id="getAllGoods" resultType="goods">
-        select * from goods;
+        select * from goods where state = '启用'
     </select>
     <select id="getCategoryGoods" resultType="goods" parameterType="goods">
-        select * from goods where goodsType = #{goodsType};
+        select * from goods where goodsType = #{goodsType} and state = '启用'
     </select>
     <insert id="addToShopCart" parameterType="ShopCart">
         insert into shopcart values (#{username},#{goodsno},#{goodsName},#{goodsImage},#{goodsPrice},#{num},#{state});
