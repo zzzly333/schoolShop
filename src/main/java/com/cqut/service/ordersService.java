@@ -7,5 +7,5 @@ import java.util.List;
 
 @Resource
 public interface ordersService {
-    List<Order> getAllOrders() throws Exception;
+    List<Order> getAllOrders(String username) throws Exception;
 }

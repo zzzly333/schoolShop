@@ -14,7 +14,7 @@
         select * from goods where goodsType = #{goodsType};
     </select>
     <insert id="addToShopCart" parameterType="ShopCart">
-        insert into shopcart values (#{username},#{goodsno},#{num});
+        insert into shopcart values (#{username},#{goodsno},#{goodsName},#{goodsImage},#{goodsPrice},#{num},#{state});
     </insert>
     <select id="checkShopCart" resultType="ShopCart" parameterType="ShopCart">
         select * from shopcart where username = #{username} and goodsno = #{goodsno}

@@ -11,10 +11,6 @@ export default new Vuex.Store({
     isSelectAll: false,
     checked:[false,false,false,false,false,false,false,false,false,false],
     goods:[],
-    isLogin: true,
-    hideUsr:true,
-    hideManager:true,
-    hideLogin:false,
     category:[],
     user:{
       id:'1006',
@@ -25,6 +21,11 @@ export default new Vuex.Store({
       state:'1',
     },
     shopCart:[],
+    orders:[],
+    isLogin: true,
+    hideUsr:true,
+    hideManager:true,
+    hideLogin:false,
     indexGoods:'',
     manager:''
   },

@@ -4,7 +4,7 @@
       <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="inputvalue" :style="search"></el-input>
       <el-menu  router :default-active="default_active" class="el-menu-demo" mode="horizontal" >
         <el-menu-item index="/schoolshop/home" @click="toHome" ><div class="top-item"> 首页</div></el-menu-item>
-        <el-menu-item index="/schoolshop/orders"><div class="top-item">订单记录</div></el-menu-item>
+        <el-menu-item index="/schoolshop/orders" @click="getOrders"><div class="top-item">订单记录</div></el-menu-item>
         <el-menu-item index="/schoolshop/shopcart" @click="getCart"><div class="top-item">购物车</div></el-menu-item>
         <el-menu-item index="/schoolshop/profile" id="profile"><div class="top-item">会员中心</div></el-menu-item>
       </el-menu>
@@ -44,14 +44,28 @@ export default {
       })
     },
     getCart(){
-      this.$axios.post("http://localhost:8081/shoolShop_war_exploded/getShopCart"
-      ).then((result) => {
+      let param = new URLSearchParams()
+      param.append("username",this.$store.state.user.username)
+      axios({
+        url:"http://localhost:8081/shoolShop_war_exploded/getShopCart",
+        method:'post',
+        data:param
+      }).then((result) => {
         console.log(result.data)
         store.commit("getCart",result.data)
-      }, function () {
-        console.log('传输失败');
       })
-    }
+    },
+    getOrders(){
+      let param = new URLSearchParams()
+      param.append("username",this.$store.state.user.username)
+      axios({
+        url:"http://localhost:8081/shoolShop_war_exploded/getAllOrders",
+        method:'post',
+        data:param
+      }).then((result) => {
+        store.commit("getOrders",result.data)
+      })
+    },
   }
 }
 </script>

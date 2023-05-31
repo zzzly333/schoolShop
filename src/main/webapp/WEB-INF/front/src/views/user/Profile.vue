@@ -34,9 +34,9 @@
       <div class="information" :class="{hide:showInfo}">
           <profile-info></profile-info>
       </div>
-    <div class="record" :class="{hide:showReco}">
-      <manager-body></manager-body>
-    </div>
+<!--    <div class="record" :class="{hide:showReco}">-->
+<!--      <manager-body></manager-body>-->
+<!--    </div>-->
     <div class="setting" :class="{hide:showSet}">
       <template>
 <!--        <el-button type="text" @click="openLogout" style="margin-top: 50px">退出登录</el-button><br>-->
@@ -50,10 +50,9 @@
 
 <script>
 import ProfileInfo from "../../components/user/profile/ProfileInfo";
-import ManagerBody from "../../components/user/profile/ManagerBody";
 export default {
   name: "Profile",
-  components: {ManagerBody, ProfileInfo},
+  components: { ProfileInfo},
   data(){
     return{
       tabPosition:"left",

@@ -6,14 +6,24 @@ public class Order {
     private String username;
     private String goodsno;
     private String goodsName;
+    private String goodsImage;
     private float sumPrice;
     private int num;
     private Date date;
 
-    public Order(String username, String goodsno, String goodsName, float v, int num, Date date) {
+    public String getGoodsImage() {
+        return goodsImage;
+    }
+
+    public void setGoodsImage(String goodsImage) {
+        this.goodsImage = goodsImage;
+    }
+
+    public Order(String username, String goodsno, String goodsName,String goodsImage, float v, int num, Date date) {
         this.username = username;
         this.goodsno = goodsno;
         this.goodsName = goodsName;
+        this.goodsImage = goodsImage;
         this.sumPrice = v;
         this.num = num;
         this.date = date;

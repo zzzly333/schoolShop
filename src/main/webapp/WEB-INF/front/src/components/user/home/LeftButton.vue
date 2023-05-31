@@ -1,6 +1,5 @@
 <template>
   <div  id="left-button">
-<!--    <i class="el-icon-shopping-cart-2 "></i>-->
     <slot></slot>
   </div>
 
